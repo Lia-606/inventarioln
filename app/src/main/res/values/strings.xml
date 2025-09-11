@@ -1,3 +1,29 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <!--CREDENCIALES APLICATIVO-->
+    <string name="app_name">INVENTARIO</string>
+    <string name="developer">Lia Pasaca</string>
+    <string name="desarrollo">Desarrollado por:</string>
+    <string name="version">version 1.0.0</string>
+    <string name="descripcion_dev">Luego pongo algo aqui</string>
+    <string name="telefono_dev">Telefono: 912027471</string>
+
+    <!-- LOGIN -->
+    <string name="Titulo_login">Iniciar Sesión</string>
+    <string name="lblusuario">Correo</string>
+    <string name="txtusuario">Ingrese su correo</string>
+    <string name="lblcontraseña">Contraseña</string>
+    <string name="txtpassword">Ingrese su contraseña</string>
+    <string name="btningresar">Ingresar</string>
+    <string name="recuperar_contrasena">¿Olvidaste tu contraseña?</string>
+
+    <!-- DASHBOARD -->
+    <string name="bienvenido">Bienvenido</string>
+    <string name="usuario_nombre">Usuario: Nombre Apellido</string>
+    <string name="usuarios">Usuarios</string>
+    <string name="equipos">Equipos</string>
+    <string name="inventario">Inventario</string>
+    <string name="prestamos">Préstamos</string>
+    <string name="reportes">Reportes</string>
+
+
 </resources>
