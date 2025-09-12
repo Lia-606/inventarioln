@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/entrada_titulo"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:textColor="@android:color/black" />
+
+        <EditText
+            android:id="@+id/edtEquipoId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/entrada_hint_equipo_id"
+            android:inputType="text"
+            android:textColor="@android:color/black"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:autofillHints="username" />
+
+        <EditText
+            android:id="@+id/edtCantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/entrada_hint_cantidad"
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:autofillHints="number" />
+
+        <EditText
+            android:id="@+id/edtProveedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/entrada_hint_proveedor"
+            android:inputType="text"
+            android:textColor="@android:color/black"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:autofillHints="name" />
+
+        <EditText
+            android:id="@+id/edtResponsable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/entrada_hint_responsable"
+            android:inputType="text"
+            android:textColor="@android:color/black"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:autofillHints="name" />
+
+        <Button
+            android:id="@+id/btnRegistrarEntrada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:minHeight="48dp"
+            android:text="@string/entrada_btn_registrar" />
+    </LinearLayout>
+</ScrollView>
