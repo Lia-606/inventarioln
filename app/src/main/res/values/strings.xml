@@ -3,9 +3,9 @@
     <string name="app_name">INVENTARIO</string>
     <string name="developer">Lia Pasaca</string>
     <string name="desarrollo">Desarrollado por:</string>
-    <string name="version">version 1.0.0</string>
-    <string name="descripcion_dev">Luego pongo algo aqui</string>
-    <string name="telefono_dev">Telefono: 912027471</string>
+    <string name="version">versión 1.0.0</string>
+    <string name="descripcion_dev">Luego pongo algo aquí</string>
+    <string name="telefono_dev">Teléfono: 912027471</string>
 
     <!-- LOGIN -->
     <string name="Titulo_login">Iniciar Sesión</string>
@@ -25,5 +25,40 @@
     <string name="prestamos">Préstamos</string>
     <string name="reportes">Reportes</string>
 
+    <!-- FORMULARIO USUARIOS -->
+    <string name="titulo_registrar_usuario">Registrar Usuario</string>
+    <string name="lblnombre">Nombre</string>
+    <string name="hint_nombre">Ingrese el nombre</string>
+    <string name="lblapellido">Apellido</string>
+    <string name="hint_apellido">Ingrese el apellido</string>
+    <string name="lblcorreo">Correo</string>
+    <string name="hint_correo">Ingrese el correo</string>
+    <string name="lblcelular">Celular</string>
+    <string name="hint_celular">Ingrese el celular</string>
+    <string name="lbldireccion">Dirección</string>
+    <string name="hint_direccion">Ingrese la dirección</string>
+    <string name="lblrol">Rol</string>
+    <string name="lblsede">Sede</string>
+    <string name="lblcontraseña_registro">Contraseña</string>
+    <string name="hint_contraseña">Ingrese la contraseña</string>
+    <string name="lblconfirmar_contraseña">Confirmar contraseña</string>
+    <string name="hint_confirmar_contraseña">Repita la contraseña</string>
 
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_guardar">Guardar</string>
+
+    <string-array name="roles">
+        <item>Admin</item>
+        <item>Instructor</item>
+        <item>Supervisor</item>
+    </string-array>
+
+    <string-array name="sedes">
+        <item>Arequipa</item>
+        <item>Lima</item>
+        <item>Cusco</item>
+        <item>Trujillo</item>
+        <item>Piura</item>
+        <item>Chiclayo</item>
+    </string-array>
 </resources>

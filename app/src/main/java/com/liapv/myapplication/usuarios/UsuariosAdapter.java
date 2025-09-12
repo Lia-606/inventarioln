@@ -15,16 +15,12 @@ import com.liapv.myapplication.R;
 
 import java.util.List;
 
-// Clase modelo del usuario
-// Puedes crearla en Usuario.java
-// con campos: nombreApellido, rol, sede, imagen (opcional)
 public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.UsuarioViewHolder> {
 
     private Context context;
     private List<Usuario> listaUsuarios;
     private OnItemClickListener listener;
 
-    // Interface para manejar eventos de botones
     public interface OnItemClickListener {
         void onEditarClick(Usuario usuario);
         void onVerMasClick(Usuario usuario);
@@ -47,18 +43,12 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         Usuario usuario = listaUsuarios.get(position);
 
-        holder.tvNombreApellido.setText(usuario.getNombreApellido());
+        holder.tvNombreApellido.setText(usuario.getNombreCompleto());
         holder.tvRol.setText("Rol: " + usuario.getRol());
         holder.tvSede.setText("Sede: " + usuario.getSede());
 
-        // Imagen (si la usas, sino deja default)
-        if (usuario.getImagenResId() != 0) {
-            holder.imgUsuario.setImageResource(usuario.getImagenResId());
-        } else {
-            holder.imgUsuario.setImageResource(R.drawable.ic_usuario); // default
-        }
+        holder.imgUsuario.setImageResource(R.drawable.ic_usuario); // default
 
-        // Eventos
         holder.btnEditar.setOnClickListener(v -> listener.onEditarClick(usuario));
         holder.btnVerMas.setOnClickListener(v -> listener.onVerMasClick(usuario));
     }
@@ -68,7 +58,6 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
         return listaUsuarios.size();
     }
 
-    // ViewHolder
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
         TextView tvNombreApellido, tvRol, tvSede;
         ImageView imgUsuario;
@@ -76,7 +65,6 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
 
         public UsuarioViewHolder(@NonNull View itemView) {
             super(itemView);
-
             tvNombreApellido = itemView.findViewById(R.id.tvNombreApellido);
             tvRol = itemView.findViewById(R.id.tvRol);
             tvSede = itemView.findViewById(R.id.tvSede);

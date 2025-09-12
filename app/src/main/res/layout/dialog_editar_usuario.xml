@@ -18,7 +18,7 @@
             android:id="@+id/tvTituloDialogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/titulo_registrar_usuario"
+            android:text="Editar Usuario"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
@@ -29,14 +29,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblnombre"
+            android:text="Nombre"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/etNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_nombre"
+            android:hint="Nombre"
             android:inputType="textPersonName"
             android:padding="12dp"
             android:textColor="@android:color/white"
@@ -47,14 +47,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblapellido"
+            android:text="Apellido"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/etApellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_apellido"
+            android:hint="Apellido"
             android:inputType="textPersonName"
             android:padding="12dp"
             android:textColor="@android:color/white"
@@ -65,14 +65,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblcorreo"
+            android:text="Correo"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/etCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_correo"
+            android:hint="Correo"
             android:inputType="textEmailAddress"
             android:padding="12dp"
             android:textColor="@android:color/white"
@@ -83,14 +83,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblcelular"
+            android:text="Celular"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/etCelular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_celular"
+            android:hint="Celular"
             android:inputType="phone"
             android:padding="12dp"
             android:textColor="@android:color/white"
@@ -101,74 +101,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lbldireccion"
+            android:text="Dirección"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
         <EditText
             android:id="@+id/etDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_direccion"
+            android:hint="Dirección"
             android:padding="12dp"
             android:textColor="@android:color/white"
             android:textColorHint="#B3FFFFFF"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Contraseña -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lblcontraseña_registro"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@android:color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etContrasena"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_contraseña"
-                android:inputType="textPassword"
-                android:textColor="@android:color/white"
-                android:textColorHint="#B3FFFFFF"
-                android:padding="12dp"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Confirmar Contraseña -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lblconfirmar_contraseña"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@android:color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etConfirmarContrasena"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_confirmar_contraseña"
-                android:inputType="textPassword"
-                android:textColor="@android:color/white"
-                android:textColorHint="#B3FFFFFF"
-                android:padding="12dp"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
         <!-- Rol -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblrol"
+            android:text="Rol"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
         <Spinner
@@ -178,14 +128,13 @@
             android:entries="@array/roles"
             android:layout_marginBottom="12dp"
             android:spinnerMode="dropdown"
-            android:textColorHint="#B3FFFFFF"
             android:popupBackground="@android:color/white" />
 
         <!-- Sede -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lblsede"
+            android:text="Sede"
             android:textColor="@android:color/white"
             android:textStyle="bold"/>
         <Spinner
@@ -193,12 +142,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/sedes"
-            android:layout_marginBottom="20dp"
-            android:textColorHint="#B3FFFFFF"
+            android:layout_marginBottom="12dp"
             android:spinnerMode="dropdown"
             android:popupBackground="@android:color/white" />
 
-        <!-- Botones centrados -->
+        <!-- Switch de Estado -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Estado"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="Inactivo"
+                android:textOn="Activo"
+                android:thumbTint="#9810FA"
+                android:trackTint="#4D179A"/>
+
+
+        </LinearLayout>
+
+        <!-- Botones -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -209,7 +185,7 @@
                 android:id="@+id/btnCancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_cancelar"
+                android:text="Cancelar"
                 android:backgroundTint="#E01B1B"
                 android:textColor="@android:color/white"/>
 
@@ -217,7 +193,7 @@
                 android:id="@+id/btnGuardar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_guardar"
+                android:text="Actualizar Datos"
                 android:layout_marginStart="16dp"
                 android:backgroundTint="#4917D4"
                 android:textColor="@android:color/white"/>
