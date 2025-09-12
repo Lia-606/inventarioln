@@ -2,4 +2,45 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="purple_50">#F3E5F5</color>
+    <color name="purple_100">#E1BEE7</color>
+    <color name="purple_200">#CE93D8</color>
+    <color name="purple_500">#9C27B0</color>
+    <color name="purple_700">#7B1FA2</color>
+
+    <color name="teal_50">#E0F2F1</color>
+    <color name="teal_100">#B2DFDB</color>
+    <color name="teal_200">#80CBC4</color>
+    <color name="teal_500">#009688</color>
+    <color name="teal_700">#00796B</color>
+
+    <!-- Colores neutrales -->
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray_dark">#424242</color>
+
+    <!-- Fondo general -->
+    <color name="background">#FAFAFA</color>
+    <color name="background_alt">#EEEEEE</color>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        ...
+    </style>
+
+
+    <!-- Éxito, advertencia, error -->
+    <color name="success_green">#4CAF50</color>
+    <color name="warning_orange">#FF9800</color>
+    <color name="error_red">#F44336</color>
+
+    <!--  -->
+    <color name="bgColor">#F0F4F8</color> <!-- Fondo general -->
+    <color name="lightGray">#E0E0E0</color> <!-- Borde sutil para card -->
+    <color name="textPrimary">#2C3E50</color> <!-- Texto principal -->
+    <color name="textHint">#9E9E9E</color> <!-- Hint (sugerencias) -->
+    <color name="cardBackground">#FFFFFF</color>
+    <!-- Personalizados -->
+    <color name="primaryText">#2C3E50</color>
+    <color name="inputText">#37474F</color>
+    <color name="separatorLine">#37474F</color>
 </resources>

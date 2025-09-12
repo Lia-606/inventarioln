@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Equipo -->
+        <TextView
+            android:id="@+id/tvEquipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_equipo"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#2c3e50" />
+
+        <!-- Solicitante -->
+        <TextView
+            android:id="@+id/tvSolicitante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_solicitante"
+            android:textSize="15sp"
+            android:layout_marginTop="4dp"
+            android:textColor="#34495e" />
+
+        <!-- Fecha solicitud -->
+        <TextView
+            android:id="@+id/tvFechaSolicitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_fecha"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:textColor="#7f8c8d" />
+
+        <!-- Estado -->
+        <TextView
+            android:id="@+id/tvEstado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_estado"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:textColor="#d35400" />
+
+        <!-- Botones -->
+        <LinearLayout
+            android:id="@+id/layoutBotones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="12dp">
+
+            <Button
+                android:id="@+id/btnAprobar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prestamo_btn_aprobar"
+                android:backgroundTint="#27ae60"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btnRechazar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prestamo_btn_rechazar"
+                android:layout_marginStart="12dp"
+                android:backgroundTint="#c0392b"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

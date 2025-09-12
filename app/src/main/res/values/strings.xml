@@ -1,5 +1,5 @@
 <resources>
-    <!--CREDENCIALES APLICATIVO-->
+    <!-- Credenciales y generales -->
     <string name="app_name">INVENTARIO</string>
     <string name="developer">Lia Pasaca</string>
     <string name="desarrollo">Desarrollado por:</string>
@@ -7,16 +7,16 @@
     <string name="descripcion_dev">Luego pongo algo aqui</string>
     <string name="telefono_dev">Telefono: 912027471</string>
 
-    <!-- LOGIN -->
-    <string name="Titulo_login">Iniciar Sesión</string>
-    <string name="lblusuario">Correo</string>
-    <string name="txtusuario">Ingrese su correo</string>
-    <string name="lblcontraseña">Contraseña</string>
-    <string name="txtpassword">Ingrese su contraseña</string>
-    <string name="btningresar">Ingresar</string>
+    <!-- Login -->
+    <string name="titulo_login">Iniciar Sesión</string>
+    <string name="lbl_usuario">Correo</string>
+    <string name="txt_usuario">Ingrese su correo</string>
+    <string name="lbl_contrasena">Contraseña</string>
+    <string name="txt_password">Ingrese su contraseña</string>
+    <string name="btn_ingresar">Ingresar</string>
     <string name="recuperar_contrasena">¿Olvidaste tu contraseña?</string>
 
-    <!-- DASHBOARD -->
+    <!-- Dashboard -->
     <string name="bienvenido">Bienvenido</string>
     <string name="usuario_nombre">Usuario: Nombre Apellido</string>
     <string name="usuarios">Usuarios</string>
@@ -24,6 +24,199 @@
     <string name="inventario">Inventario</string>
     <string name="prestamos">Préstamos</string>
     <string name="reportes">Reportes</string>
+
+
+    <!-- Entradas -->
+    <string name="entrada_titulo">Registrar Entrada de Equipo</string>
+    <string name="entrada_hint_equipo_id">ID del equipo</string>
+    <string name="entrada_hint_cantidad">Cantidad</string>
+    <string name="entrada_hint_proveedor">Proveedor</string>
+    <string name="entrada_hint_responsable">Responsable</string>
+    <string name="entrada_btn_registrar">Registrar Entrada</string>
+
+    <string name="entrada_msg_complete_campos">Complete todos los campos</string>
+    <string name="entrada_msg_cantidad_invalida">Cantidad inválida</string>
+    <string name="entrada_msg_ingrese_cantidad_valida">Ingrese una cantidad válida</string>
+    <string name="entrada_msg_registro_exitoso">Entrada registrada</string>
+    <string name="entrada_msg_error_actualizar_stock">Error al actualizar stock</string>
+    <string name="entrada_msg_error_registrar">Error al registrar entrada</string>
+
+    <!-- Salidas -->
+    <string-array name="salida_motivos">
+        <item>Uso interno</item>
+        <item>Mantenimiento</item>
+        <item>Préstamo</item>
+        <item>Baja</item>
+        <item>Otro</item>
+    </string-array>
+    <string name="salida_titulo">Registrar Salida de Equipo</string>
+    <string name="salida_hint_equipo_id">ID del equipo</string>
+    <string name="salida_hint_cantidad">Cantidad</string>
+    <string name="salida_hint_responsable">Responsable</string>
+    <string name="salida_hint_motivo">Motivo</string>
+    <string name="salida_btn_registrar">Registrar Salida</string>
+
+    <string name="salida_msg_complete_campos">Complete todos los campos</string>
+    <string name="salida_msg_salida_registrada">Salida registrada</string>
+    <string name="salida_msg_stock_insuficiente">Stock insuficiente</string>
+    <string name="salida_msg_error_db">Error de base de datos</string>
+
+    <!-- Préstamos -->
+    <string name="prestamo_titulo_solicitud">Solicitar Préstamo</string>
+    <string name="prestamo_spinner_seleccionar_equipo">Seleccione un equipo</string>
+    <string name="prestamo_btn_solicitar">Solicitar Préstamo</string>
+    <string name="prestamo_msg_solicitud_exitosa">Solicitud enviada correctamente</string>
+    <string name="prestamo_msg_error_solicitud">Error al enviar la solicitud</string>
+    <string name="prestamo_msg_error_campos_vacios">Complete todos los campos</string>
+
+    <string name="prestamo_lista_titulo">Lista de Solicitudes</string>
+    <string name="prestamo_btn_aprobar">Aprobar</string>
+    <string name="prestamo_btn_rechazar">Rechazar</string>
+    <string name="prestamo_msg_aprobado">Solicitud aprobada</string>
+    <string name="prestamo_msg_rechazado">Solicitud rechazada</string>
+    <string name="prestamo_msg_error_actualizar">Error al actualizar solicitud</string>
+    <string name="prestamo_msg_stock_insuficiente">No hay stock disponible para aprobar</string>
+    <string name="prestamo_msg_cargando">Cargando solicitudes...</string>
+    <string name="prestamo_msg_error_cargar">Error al cargar solicitudes</string>
+
+    <string name="prestamo_devolucion_titulo">Registrar Devolución</string>
+    <string name="prestamo_spinner_prestamos_activos">Seleccione un préstamo activo</string>
+    <string name="prestamo_btn_registrar_devolucion">Registrar Devolución</string>
+    <string name="prestamo_msg_devolucion_registrada">Devolución registrada</string>
+    <string name="prestamo_msg_error_actualizar_stock">Error al actualizar stock</string>
+    <string name="prestamo_msg_error_actualizar_prestamo">Error al actualizar préstamo</string>
+    <string name="prestamo_msg_seleccione_prestamo">Seleccione un préstamo</string>
+    <string name="prestamo_msg_prestamo_no_valido">Préstamo no válido</string>
+
+    <string name="prestamo_notificacion_titulo">Devoluciones recientes</string>
+    <string name="prestamo_notificacion_mensaje">Hay %1$d devoluciones recientes.</string>
+    <string name="label_equipo">Equipo</string>
+    <string name="label_solicitante">Solicitante</string>
+    <string name="label_fecha">Fecha</string>
+    <string name="label_estado">Estado</string>
+
+
+    <!-- Gestión de Equipos -->
+
+    <string name="prestamo_estado_pendiente">Pendiente</string>
+    <string name="prestamo_estado_aprobado">Aprobado</string>
+    <string name="prestamo_estado_rechazado">Rechazado</string>
+    <string name="prestamo_estado_devuelto">Devuelto</string>
+
+    <string name="prestamo_msg_confirmar_aprobacion">¿Está seguro que desea aprobar esta solicitud?</string>
+    <string name="prestamo_msg_confirmar_rechazo">¿Está seguro que desea rechazar esta solicitud?</string>
+
+
+    <string name="equipos_titulo_lista">Lista de Equipos</string>
+    <string name="equipos_btn_agregar">Registrar Nuevo Equipo</string>
+    <string name="equipos_btn_editar">Editar Equipo</string>
+    <string name="equipos_btn_eliminar">Eliminar Equipo</string>
+    <string name="equipos_btn_guardar">Guardar Cambios</string>
+    <string name="equipos_btn_cancelar">Cancelar</string>
+    <string name="equipos_btn_generar_codigo">Generar Código QR</string>
+
+    <string name="equipos_hint_nombre">Nombre del equipo</string>
+    <string name="equipos_hint_tipo">Tipo</string>
+    <string name="equipos_hint_marca">Marca</string>
+    <string name="equipos_hint_modelo">Modelo</string>
+    <string name="equipos_hint_estado">Estado</string>
+    <string name="equipos_hint_ubicacion">Ubicación</string>
+    <string name="equipos_hint_codigo_unico">Código Único</string>
+
+
+    <string name="equipos_msg_equipo_registrado">Equipo registrado correctamente</string>
+    <string name="equipos_msg_equipo_actualizado">Equipo actualizado correctamente</string>
+    <string name="equipos_msg_equipo_eliminado">Equipo eliminado correctamente</string>
+    <string name="equipos_msg_error_registrar">Error al registrar equipo</string>
+    <string name="equipos_msg_error_actualizar">Error al actualizar equipo</string>
+    <string name="equipos_msg_error_eliminar">Error al eliminar equipo</string>
+    <string name="equipos_msg_campos_vacios">Por favor, complete todos los campos obligatorios</string>
+    <string name="equipos_msg_codigo_generado">Código generado exitosamente</string>
+    <string name="equipos_msg_error_codigo">Error al generar el código QR</string>
+
+    <string name="equipos_buscar_hint">Buscar por nombre, tipo o código</string>
+    <string name="equipos_filtro_titulo">Filtrar Equipos</string>
+    <string name="equipos_filtro_tipo">Filtrar por Tipo</string>
+    <string name="equipos_filtro_estado">Filtrar por Estado</string>
+    <string name="equipos_filtro_ubicacion">Filtrar por Ubicación</string>
+
+    <string name="equipos_label_nombre">Nombre</string>
+    <string name="equipos_label_tipo">Tipo</string>
+    <string name="equipos_label_marca">Marca</string>
+    <string name="equipos_label_modelo">Modelo</string>
+    <string name="equipos_label_estado">Estado</string>
+    <string name="equipos_label_ubicacion">Ubicación</string>
+    <string name="equipos_label_codigo">Código Único</string>
+    <!-- Filtros avanzados -->
+
+    <string name="equipos_btn_aplicar_filtros">Aplicar Filtros</string>
+    <string name="equipos_btn_limpiar_filtros">Limpiar Filtros</string>
+    <string name="equipos_filtro_todos">Todos</string>
+    <string name="equipos_filtro_seleccionar">Seleccione una opción</string>
+
+
+    <!-- Detalle del Equipo -->
+    <string name="detalle_equipo_titulo">Detalle del Equipo</string>
+    <string name="detalle_equipo_codigo">Código QR</string>
+    <string name="detalle_equipo_btn_editar">Editar</string>
+    <string name="detalle_equipo_btn_eliminar">Eliminar</string>
+    <string name="detalle_equipo_btn_volver">Volver a la lista</string>
+
+    <!-- Mensajes de confirmación -->
+    <string name="equipos_msg_confirmar_eliminacion">¿Está seguro que desea eliminar este equipo?</string>
+    <string name="equipos_msg_eliminacion_cancelada">Eliminación cancelada</string>
+
+    <!-- Roles -->
+    <string name="rol_administrador">Administrador</string>
+    <string name="rol_supervisor">Supervisor</string>
+    <string name="rol_instructor">Instructor</string>
+
+
+    <string name="equipos_msg_error_cargar">Error al cargar los equipos.</string>
+    <string name="equipos_msg_error_codigo_vacio">El código para el QR está vacío.</string>
+    <string name="equipos_msg_error_generar_qr">Error al generar el código QR.</string>
+
+
+    <!-- Botones específicos de Inventario -->
+    <string name="inventario_btn_ver_stock">Ver Stock</string>
+    <string name="inventario_btn_ver_entradas">Ver Entradas</string>
+    <string name="inventario_btn_ver_salidas">Ver Salidas</string>
+    <string name="inventario_btn_actualizar_stock">Actualizar Stock</string>
+    <string name="inventario_btn_exportar_pdf">Exportar a PDF</string>
+    <string name="inventario_btn_exportar_excel">Exportar a Excel</string>
+
+    <string name="reportes_titulo">Reportes</string>
+    <string name="reportes_msg_exportacion_exitosa">Reporte exportado correctamente</string>
+    <string name="reportes_msg_error_exportacion">Error al exportar el reporte</string>
+
+
+    <!-- Mensajes e indicadores -->
+    <string name="inventario_msg_no_stock">No hay stock disponible</string>
+    <string name="inventario_msg_stock_actualizado">Stock actualizado correctamente</string>
+    <string name="inventario_msg_error_cargar_stock">Error al cargar stock</string>
+    <string name="inventario_msg_error_exportar">Error al exportar datos</string>
+
+    <!-- Etiquetas -->
+    <string name="inventario_label_fecha">Fecha</string>
+    <string name="inventario_label_hora">Hora</string>
+    <string name="inventario_label_cantidad">Cantidad</string>
+
+
+    <!-- Inventario -->
+    <string name="inventario_titulo_entrada">Registrar Entrada</string>
+    <string name="inventario_titulo_salida">Registrar Salida</string>
+    <string name="inventario_hint_equipo_id">ID del equipo</string>
+    <string name="inventario_hint_cantidad">Cantidad</string>
+    <string name="inventario_hint_proveedor">Proveedor</string>
+    <string name="inventario_hint_responsable">Responsable</string>
+    <string name="inventario_btn_registrar_entrada">Registrar Entrada</string>
+    <string name="inventario_btn_registrar_salida">Registrar Salida</string>
+    <string name="inventario_msg_entrada_registrada">Entrada registrada correctamente</string>
+    <string name="inventario_msg_salida_registrada">Salida registrada correctamente</string>
+    <string name="inventario_msg_error_registrar">Error al registrar movimiento</string>
+    <string name="inventario_msg_campos_vacios">Complete todos los campos</string>
+    <string name="inventario_stock_titulo">Stock en Tiempo Real</string>
+    <string name="inventario_stock_sin_datos">No hay datos de stock disponibles</string>
 
 
 </resources>

@@ -11,6 +11,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+
+        <activity
+            android:name=".prestamos.RegistrarDevolucionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".prestamos.ListaSolicitudesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".prestamos.SolicitarPrestamoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".inventario.StockActivity"
+            android:exported="false" />
+        <activity
+            android:name=".inventario.RegistrarSalidaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".inventario.RegistrarEntradaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".equipos.FormularioEquipoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".equipos.DetalleEquipoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".equipos.ListaEquiposActivity"
+            android:exported="false" />
         <activity
             android:name=".usuarios.UsuariosActivity"
             android:exported="false" />
