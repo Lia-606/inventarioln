@@ -1,5 +1,7 @@
 package com.liapv.myapplication.modelos;
+
 import java.io.Serializable;
+
 public class Equipo implements Serializable {
     private String id;
     private String nombre;
@@ -9,7 +11,6 @@ public class Equipo implements Serializable {
     private String estado;
     private String ubicacion;
     private String codigo;
-
     private int stock;
 
     // Constructor vacío requerido por Firebase
@@ -27,11 +28,15 @@ public class Equipo implements Serializable {
         this.codigo = codigo;
     }
 
+    // Constructor con ID y stock
+    public Equipo(String id, String nombre, int stock) {
+        this.id = id;
+        this.nombre = nombre;
+        this.stock = stock;
+    }
+
     // Getters y setters
-
     public String getId() { return id; }
-
-    // Puedes seguir usando setId() si asignas el ID manualmente después de obtenerlo de Firebase
     public void setId(String id) { this.id = id; }
 
     public String getNombre() { return nombre; }
@@ -55,17 +60,6 @@ public class Equipo implements Serializable {
     public String getCodigo() { return codigo; }
     public void setCodigo(String codigo) { this.codigo = codigo; }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public Equipo(String id, String nombre, int stock) {
-        this.id = id;
-        this.nombre = nombre;
-        this.stock = stock;
-    }
+    public int getStock() { return stock; }
+    public void setStock(int stock) { this.stock = stock; }
 }

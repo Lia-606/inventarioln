@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import android.widget.TextView;
+
 
 
 public class UsuariosActivity extends AppCompatActivity {
@@ -156,53 +159,57 @@ public class UsuariosActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private void mostrarDialogoRegistro() {
+    public void mostrarDialogoRegistro() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_registrar_usuario, null);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_registrar_usuario, null);
         builder.setView(dialogView);
-
         AlertDialog dialog = builder.create();
 
-        // Referencias UI
         EditText etNombre = dialogView.findViewById(R.id.etNombre);
         EditText etApellido = dialogView.findViewById(R.id.etApellido);
         EditText etCorreo = dialogView.findViewById(R.id.etCorreo);
         EditText etContrasena = dialogView.findViewById(R.id.etContrasena);
-        EditText etRepetirContrasena = dialogView.findViewById(R.id.etConfirmarContrasena);
         EditText etCelular = dialogView.findViewById(R.id.etCelular);
         EditText etDireccion = dialogView.findViewById(R.id.etDireccion);
-        Spinner spRol = dialogView.findViewById(R.id.spRol);
-        Spinner spSede = dialogView.findViewById(R.id.spSede);
+        Spinner spRol = dialogView.findViewById(R.id.spRol);   // ✅ Spinner
+        Spinner spSede = dialogView.findViewById(R.id.spSede); // ✅ Spinner
 
         Button btnGuardar = dialogView.findViewById(R.id.btnGuardar);
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
 
-        // Cancelar
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
 
-        // Guardar usuario
         btnGuardar.setOnClickListener(v -> {
             String nombre = etNombre.getText().toString().trim();
             String apellido = etApellido.getText().toString().trim();
             String correo = etCorreo.getText().toString().trim();
             String contrasena = etContrasena.getText().toString().trim();
-            String repetir = etRepetirContrasena.getText().toString().trim();
             String celular = etCelular.getText().toString().trim();
             String direccion = etDireccion.getText().toString().trim();
-            String rol = spRol.getSelectedItem().toString();
-            String sede = spSede.getSelectedItem().toString();
+            String rol = spRol.getSelectedItem().toString();   // ✅ Spinner obtiene selección
+            String sede = spSede.getSelectedItem().toString(); // ✅ Spinner obtiene selección
 
-            if (!validarCampos(nombre, apellido, correo, contrasena, repetir, celular)) return;
+            if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(apellido) ||
+                    TextUtils.isEmpty(correo) || TextUtils.isEmpty(contrasena)) {
+                Toast.makeText(this, "Completa todos los campos obligatorios", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            // 🔑 FirebaseAuth secundario SOLO para crear al usuario
-            FirebaseAuth tempAuth = FirebaseAuth.getInstance();
+            // Crear un FirebaseApp secundario para no cerrar la sesión del admin
+            FirebaseApp secondaryApp;
+            try {
+                secondaryApp = FirebaseApp.getInstance("secondary");
+            } catch (IllegalStateException e) {
+                FirebaseOptions options = FirebaseApp.getInstance().getOptions();
+                secondaryApp = FirebaseApp.initializeApp(getApplicationContext(), options, "secondary");
+            }
+
+            FirebaseAuth tempAuth = FirebaseAuth.getInstance(secondaryApp);
 
             tempAuth.createUserWithEmailAndPassword(correo, contrasena)
                     .addOnSuccessListener(authResult -> {
                         String uid = authResult.getUser().getUid();
 
-                        // Guardar en Realtime Database
                         DatabaseReference nuevoUsuario = usuariosRef.child(uid);
                         nuevoUsuario.child("nombre").setValue(nombre);
                         nuevoUsuario.child("apellido").setValue(apellido);
@@ -215,10 +222,8 @@ public class UsuariosActivity extends AppCompatActivity {
                         nuevoUsuario.child("fecha_registro").setValue(obtenerFechaActual());
                         nuevoUsuario.child("ultimo_login").setValue("");
 
-                        // Importante: cerrar sesión del usuario recién creado
                         tempAuth.signOut();
 
-                        // Restaurar la sesión del admin (mAuth sigue activo)
                         Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     })

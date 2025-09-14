@@ -1,9 +1,11 @@
 package com.liapv.myapplication;
 
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,8 +13,10 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,19 +44,52 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> loginUser());
 
         // Acción del botón "Olvidé mi contraseña"
-        btnForgotPassword.setOnClickListener(v -> {
-            String email = etEmail.getText().toString().trim();
+        btnForgotPassword.setOnClickListener(v -> showForgotPasswordDialog());
+    }
+
+    // 🔹 Dialog personalizado para recuperar contraseña
+    private void showForgotPasswordDialog() {
+        // Inflar tu layout personalizado
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.recuperar_contrasena, null);
+
+        // Referencias a los elementos dentro del layout
+        TextInputEditText etDialogEmail = view.findViewById(R.id.etEmail);
+        Button btnSend = view.findViewById(R.id.btnSendEmail);
+        Button btnCancel = view.findViewById(R.id.btnBackToLogin);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(false) // ⛔ No se cierra tocando fuera
+                .create();
+
+        // Botón enviar
+        btnSend.setOnClickListener(v -> {
+            String email = etDialogEmail.getText().toString().trim();
             if (TextUtils.isEmpty(email)) {
-                Toast.makeText(this, "Ingresa tu correo primero", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Ingresa tu correo", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Correo inválido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             mAuth.sendPasswordResetEmail(email)
-                    .addOnSuccessListener(aVoid ->
-                            Toast.makeText(this, "Se envió un enlace a tu correo", Toast.LENGTH_SHORT).show())
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Se envió un enlace a tu correo", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    })
                     .addOnFailureListener(e ->
                             Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         });
+
+        // Botón cancelar
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
+
 
     private void loginUser() {
         String email = etEmail.getText().toString().trim();
@@ -91,11 +128,11 @@ public class MainActivity extends AppCompatActivity {
                                 if (estado != null && estado.equalsIgnoreCase("Activo")) {
                                     // Usuario activo → continuar
                                     Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(MainActivity.this, Dashboard.class));
+                                    startActivity(new android.content.Intent(MainActivity.this, Dashboard.class));
                                     finish();
                                 } else {
                                     // Usuario inactivo → bloquear acceso
-                                    mAuth.signOut(); // cerrar sesión si FirebaseAuth ya creó sesión
+                                    mAuth.signOut();
                                     Toast.makeText(this,
                                             "Usuario inactivo: no puede iniciar sesión. Si cree que es un error, contacte al administrador.",
                                             Toast.LENGTH_LONG).show();

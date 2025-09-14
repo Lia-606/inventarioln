@@ -41,7 +41,7 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
         Equipo equipo = listaEquipos.get(position);
         holder.tvNombre.setText(equipo.getNombre());
         holder.tvTipo.setText(equipo.getTipo());
-        holder.tvCodigo.setText(equipo.getCodigoUnico());
+        holder.tvCodigo.setText(equipo.getCodigo()); // ✅ aquí se usa getCodigo()
     }
 
     @Override
@@ -76,7 +76,7 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
                 for (Equipo item : listaEquiposFull) {
                     if (item.getNombre().toLowerCase().contains(filtro) ||
                             item.getTipo().toLowerCase().contains(filtro) ||
-                            item.getCodigoUnico().toLowerCase().contains(filtro)) {
+                            item.getCodigo().toLowerCase().contains(filtro)) { // ✅ aquí también
                         filtrada.add(item);
                     }
                 }
