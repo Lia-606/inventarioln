@@ -1,7 +1,5 @@
 package com.liapv.myapplication.prestamos;
 
-import com.liapv.myapplication.modelos.Equipo;
-
 import android.os.Bundle;
 import android.widget.*;
 import androidx.annotation.Nullable;
@@ -12,6 +10,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 
 import com.liapv.myapplication.R;
+import com.liapv.myapplication.modelos.Equipo;
+import com.liapv.myapplication.modelos.Prestamo;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -19,6 +19,7 @@ import java.util.*;
 public class SolicitarPrestamoActivity extends AppCompatActivity {
 
     private Spinner spinnerEquipos;
+    private EditText edtCantidad;
     private EditText edtObservaciones;
     private Button btnSolicitar;
 
@@ -37,6 +38,7 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_solicitar_prestamo);
 
         spinnerEquipos = findViewById(R.id.spinnerEquipos);
+        edtCantidad = findViewById(R.id.edtCantidad);
         edtObservaciones = findViewById(R.id.edtObservaciones);
         btnSolicitar = findViewById(R.id.btnSolicitar);
 
@@ -47,6 +49,7 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
         cargarEquipos();
 
         btnSolicitar.setOnClickListener(v -> solicitarPrestamo());
+        getWindow().setBackgroundDrawableResource(R.drawable.fondo4);
     }
 
     private void cargarEquipos() {
@@ -57,10 +60,16 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
                 List<String> nombresEquipos = new ArrayList<>();
                 mapEquipos.clear();
 
+                nombresEquipos.add(getString(R.string.prestamo_spinner_seleccionar_equipo));
+
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     Equipo equipo = ds.getValue(Equipo.class);
                     if (equipo != null && equipo.getStock() > 0) {
-                        String key = equipo.getNombre() + " - " + equipo.getId();
+                        equipo.setId(ds.getKey());
+
+                        String key = (equipo.getNombre() != null ? equipo.getNombre() : "Sin nombre")
+                                + " - " + (equipo.getCodigo() != null ? equipo.getCodigo() : "Sin código");
+
                         listaEquipos.add(equipo);
                         nombresEquipos.add(key);
                         mapEquipos.put(key, equipo);
@@ -71,6 +80,10 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
                         android.R.layout.simple_spinner_item, nombresEquipos);
                 adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerEquipos.setAdapter(adapterSpinner);
+
+                if (nombresEquipos.size() == 1) {
+                    Toast.makeText(SolicitarPrestamoActivity.this, "No hay equipos disponibles", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -83,10 +96,33 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
     }
 
     private void solicitarPrestamo() {
-        if (spinnerEquipos.getSelectedItem() == null) {
+        if (spinnerEquipos.getSelectedItemPosition() == 0) {
             Toast.makeText(this,
                     getString(R.string.prestamo_msg_error_campos_vacios),
                     Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String cantidadStr = edtCantidad.getText().toString().trim();
+
+        if (cantidadStr.isEmpty()) {
+            edtCantidad.setError("Ingresa la cantidad");
+            edtCantidad.requestFocus();
+            return;
+        }
+
+        int cantidadSolicitada;
+        try {
+            cantidadSolicitada = Integer.parseInt(cantidadStr);
+        } catch (NumberFormatException e) {
+            edtCantidad.setError("Cantidad inválida");
+            edtCantidad.requestFocus();
+            return;
+        }
+
+        if (cantidadSolicitada <= 0) {
+            edtCantidad.setError("La cantidad debe ser mayor que cero");
+            edtCantidad.requestFocus();
             return;
         }
 
@@ -100,9 +136,16 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
             return;
         }
 
+        if (cantidadSolicitada > equipo.getStock()) {
+            String mensaje = "Cantidad insuficiente. Solo hay " + equipo.getStock() + " disponibles.";
+            edtCantidad.setError(mensaje);
+            edtCantidad.requestFocus();
+            return;
+        }
+
         String observaciones = edtObservaciones.getText().toString().trim();
 
-        Prestamo prestamo = crearPrestamo(equipo, observaciones);
+        Prestamo prestamo = crearPrestamo(equipo, cantidadSolicitada, observaciones);
 
         if (prestamo == null) {
             Toast.makeText(this,
@@ -116,7 +159,7 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
                     Toast.makeText(this,
                             getString(R.string.prestamo_msg_solicitud_exitosa),
                             Toast.LENGTH_SHORT).show();
-                    finish(); // O limpiar campos si no deseas cerrar
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this,
@@ -125,7 +168,7 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
                 });
     }
 
-    private Prestamo crearPrestamo(Equipo equipo, String observaciones) {
+    private Prestamo crearPrestamo(Equipo equipo, int cantidad, String observaciones) {
         String idPrestamo = dbPrestamos.push().getKey();
         if (idPrestamo == null) return null;
 
@@ -133,7 +176,7 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
         String usuarioId = user != null ? user.getUid() : "desconocido";
         String nombreSolicitante = (user != null && user.getDisplayName() != null)
                 ? user.getDisplayName()
-                : getString(R.string.rol_instructor); // o "Instructor" directo
+                : getString(R.string.rol_instructor);
 
         String fechaSolicitud = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                 .format(new Date());
@@ -146,8 +189,11 @@ public class SolicitarPrestamoActivity extends AppCompatActivity {
                 nombreSolicitante,
                 fechaSolicitud,
                 "Pendiente",
-                null,
+                cantidad,
+                0,              // cantidadDevuelta inicial 0
+                null,           // fechaDevolucion inicialmente null
                 observaciones
         );
     }
+
 }

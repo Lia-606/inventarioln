@@ -13,7 +13,7 @@
         android:src="@drawable/fondo2"
         android:contentDescription="@string/app_name" />
 
-    <!-- Contenido original con cuadros -->
+    <!-- Contenido -->
     <ScrollView
         android:padding="16dp"
         android:layout_width="match_parent"
@@ -26,13 +26,16 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal">
 
+            <!-- CARD GENERAL (Reutilizable para todos los campos) -->
+            <!-- Cada bloque se repite cambiando ID, ícono y texto -->
+
             <!-- Nombre -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
                 android:background="@android:color/white"
                 android:padding="12dp">
 
@@ -41,22 +44,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="@string/equipos_label_nombre"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_info_details"
+                            app:tint="#444" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/equipos_label_nombre"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvNombre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:contentDescription="@string/equipos_label_nombre" />
-
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -65,8 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
                 android:background="@android:color/white"
                 android:padding="12dp">
 
@@ -75,22 +92,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="@string/equipos_label_tipo"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_sort_by_size"
+                            app:tint="#444" />
+
+                        <TextView
+                            android:text="@string/equipos_label_tipo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvTipo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:contentDescription="@string/equipos_label_tipo" />
-
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -99,8 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
                 android:background="@android:color/white"
                 android:padding="12dp">
 
@@ -109,22 +140,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="@string/equipos_label_marca"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_myplaces"
+                            app:tint="#444" />
+
+                        <TextView
+                            android:text="@string/equipos_label_marca"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvMarca"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:contentDescription="@string/equipos_label_marca" />
-
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -133,8 +178,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
                 android:background="@android:color/white"
                 android:padding="12dp">
 
@@ -143,22 +188,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="@string/equipos_label_modelo"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_manage"
+                            app:tint="#444" />
+
+                        <TextView
+                            android:text="@string/equipos_label_modelo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvModelo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:contentDescription="@string/equipos_label_modelo" />
-
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -167,8 +226,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
                 android:background="@android:color/white"
                 android:padding="12dp">
 
@@ -177,22 +236,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="@string/equipos_label_estado"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_help"
+                            app:tint="#444" />
+
+                        <TextView
+                            android:text="@string/equipos_label_estado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvEstado"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:contentDescription="@string/equipos_label_estado" />
-
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -201,8 +274,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
                 android:background="@android:color/white"
                 android:padding="12dp">
 
@@ -211,22 +284,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="@string/equipos_label_ubicacion"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_compass"
+                            app:tint="#444" />
+
+                        <TextView
+                            android:text="@string/equipos_label_ubicacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvUbicacion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:contentDescription="@string/equipos_label_ubicacion" />
-
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -235,8 +322,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
                 android:background="@android:color/white"
                 android:padding="12dp">
 
@@ -245,22 +332,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="@string/equipos_label_codigo"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_agenda"
+                            app:tint="#444" />
+
+                        <TextView
+                            android:text="@string/equipos_label_codigo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvCodigo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:textColor="#333333"
-                        android:textSize="14sp"
-                        android:contentDescription="@string/equipos_label_codigo" />
-
+                        android:textSize="16sp"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -269,8 +370,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
                 android:background="@android:color/white"
                 android:padding="12dp">
 
@@ -286,7 +387,8 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:textColor="#000000"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/ivQR"
@@ -313,8 +415,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/detalle_equipo_btn_editar" />
+                    android:drawableStart="@android:drawable/ic_menu_edit"
+                    android:drawablePadding="8dp" />
 
                 <Button
                     android:id="@+id/btnEliminar"
@@ -322,8 +424,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/detalle_equipo_btn_eliminar" />
+                    android:drawableStart="@android:drawable/ic_menu_delete"
+                    android:drawablePadding="8dp" />
 
                 <Button
                     android:id="@+id/btnVolver"
@@ -331,10 +433,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="@string/detalle_equipo_btn_volver" />
+                    android:drawableStart="@android:drawable/ic_menu_revert"
+                    android:drawablePadding="8dp" />
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
-
 </FrameLayout>

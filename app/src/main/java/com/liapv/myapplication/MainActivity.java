@@ -12,6 +12,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,13 +79,34 @@ public class MainActivity extends AppCompatActivity {
         // 🔹 Autenticación en Firebase
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(authResult -> {
-                    // ✅ Si se loguea correctamente → pasa al Dashboard
-                    Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this, Dashboard.class));
-                    finish(); // cerrar login
+                    String uid = authResult.getUser().getUid();
+
+                    // 🔹 Verificar estado del usuario en Realtime Database
+                    FirebaseDatabase.getInstance().getReference("usuarios")
+                            .child(uid)
+                            .child("estado")
+                            .get()
+                            .addOnSuccessListener(dataSnapshot -> {
+                                String estado = dataSnapshot.getValue(String.class);
+                                if (estado != null && estado.equalsIgnoreCase("Activo")) {
+                                    // Usuario activo → continuar
+                                    Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(MainActivity.this, Dashboard.class));
+                                    finish();
+                                } else {
+                                    // Usuario inactivo → bloquear acceso
+                                    mAuth.signOut(); // cerrar sesión si FirebaseAuth ya creó sesión
+                                    Toast.makeText(this,
+                                            "Usuario inactivo: no puede iniciar sesión. Si cree que es un error, contacte al administrador.",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, "Error al verificar estado del usuario", Toast.LENGTH_SHORT).show();
+                            });
+
                 })
                 .addOnFailureListener(e -> {
-                    // ❌ Error de login
                     Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                 });
     }

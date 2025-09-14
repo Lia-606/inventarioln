@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
-    card_view:cardCornerRadius="16dp"
-    card_view:cardElevation="8dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:backgroundTint="#ffffff"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp"
+    app:strokeColor="#e0e0e0"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -29,12 +30,12 @@
                 android:layout_height="24dp"
                 android:src="@android:drawable/ic_menu_manage"
                 app:tint="#2c3e50"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp" />
 
             <TextView
                 android:id="@+id/tvEquipo"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:text="@string/label_equipo"
                 android:textColor="#2c3e50"
                 android:textSize="17sp"
@@ -54,7 +55,7 @@
                 android:layout_height="20dp"
                 android:src="@android:drawable/ic_menu_myplaces"
                 app:tint="#34495e"
-                android:layout_marginEnd="6dp"/>
+                android:layout_marginEnd="6dp" />
 
             <TextView
                 android:id="@+id/tvSolicitante"
@@ -62,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_solicitante"
                 android:textSize="14.5sp"
-                android:textColor="#34495e"/>
+                android:textColor="#34495e" />
         </LinearLayout>
 
         <!-- Fecha solicitud -->
@@ -78,7 +79,7 @@
                 android:layout_height="20dp"
                 android:src="@android:drawable/ic_menu_today"
                 app:tint="#7f8c8d"
-                android:layout_marginEnd="6dp"/>
+                android:layout_marginEnd="6dp" />
 
             <TextView
                 android:id="@+id/tvFechaSolicitud"
@@ -86,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_fecha"
                 android:textSize="14sp"
-                android:textColor="#7f8c8d"/>
+                android:textColor="#7f8c8d" />
         </LinearLayout>
 
         <!-- Estado -->
@@ -102,7 +103,7 @@
                 android:layout_height="20dp"
                 android:src="@android:drawable/ic_menu_info_details"
                 app:tint="#e67e22"
-                android:layout_marginEnd="6dp"/>
+                android:layout_marginEnd="6dp" />
 
             <TextView
                 android:id="@+id/tvEstado"
@@ -110,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_estado"
                 android:textSize="14sp"
-                android:textColor="#e67e22"/>
+                android:textColor="#e67e22" />
         </LinearLayout>
 
         <!-- Botones -->
@@ -131,11 +132,12 @@
                 android:minWidth="64dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="@string/prestamo_btn_aprobar"
+                android:text="Aprobar"
                 android:textAllCaps="false"
                 android:backgroundTint="#27ae60"
                 android:textColor="#FFFFFF"
-                android:elevation="4dp"/>
+                android:elevation="4dp"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnRechazar"
@@ -146,12 +148,12 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:layout_marginStart="12dp"
-                android:text="@string/prestamo_btn_rechazar"
+                android:text="Rechazar"
                 android:textAllCaps="false"
                 android:backgroundTint="#c0392b"
                 android:textColor="#FFFFFF"
-                android:elevation="4dp"/>
-
+                android:elevation="4dp"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -1,29 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp"
-    android:background="?attr/selectableItemBackground">
+    android:layout_margin="12dp"
+    android:backgroundTint="#ffffff"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    app:strokeColor="#e0e0e0"
+    app:strokeWidth="1dp">
 
-    <TextView
-        android:id="@+id/tvNombre"
-        android:text="@string/equipos_label_nombre"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvTipo"
-        android:text="@string/equipos_label_tipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <!-- Nombre del equipo -->
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/equipos_label_nombre"
+            android:textStyle="bold"
+            android:textColor="#2c3e50"
+            android:textSize="17sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnEditar"
+            app:layout_constraintHorizontal_bias="0" />
 
-    <TextView
-        android:id="@+id/tvCodigo"
-        android:text="@string/equipos_label_codigo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <!-- Tipo del equipo -->
+        <TextView
+            android:id="@+id/tvTipo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/equipos_label_tipo"
+            android:textSize="14sp"
+            android:textColor="#34495e"
+            app:layout_constraintTop_toBottomOf="@id/tvNombre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnEditar"
+            android:layout_marginTop="4dp" />
 
-</LinearLayout>
+        <!-- Código del equipo -->
+        <TextView
+            android:id="@+id/tvCodigo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/equipos_label_codigo"
+            android:textStyle="bold"
+            android:textColor="#6A1B9A"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/tvTipo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnEditar"
+            android:layout_marginTop="4dp" />
+
+        <!-- Botón editar -->
+        <ImageButton
+            android:id="@+id/btnEditar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:contentDescription="@string/equipos_btn_editar"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="#6A1B9A"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

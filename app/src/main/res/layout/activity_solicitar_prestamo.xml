@@ -1,53 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="48dp">
+    android:background="@drawable/fondo3">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:clipToPadding="false">
 
-        <!-- Título del formulario -->
-        <TextView
-            android:id="@+id/tvTitulo"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prestamo_titulo_solicitud"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="16dp" />
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:padding="20dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:strokeColor="#DDDDDD"
+            app:strokeWidth="1dp">
 
-        <!-- Spinner con equipos -->
-        <Spinner
-            android:id="@+id/spinnerEquipos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:prompt="@string/prestamo_spinner_seleccionar_equipo"
-            android:contentDescription="@string/prestamo_spinner_seleccionar_equipo" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <!-- Observaciones -->
-        <EditText
-            android:id="@+id/edtObservaciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Observaciones (opcional)"
-            android:inputType="textMultiLine"
-            android:minLines="3"
-            android:layout_marginTop="12dp" />
+                <!-- Título del formulario -->
+                <TextView
+                    android:id="@+id/tvTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prestamo_titulo_solicitud"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#2c3e50"
+                    android:gravity="center_horizontal"
+                    android:drawableTop="@android:drawable/ic_menu_edit"
+                    android:drawablePadding="8dp"
+                    android:paddingBottom="12dp" />
 
-        <!-- Botón de solicitud -->
-        <Button
-            android:id="@+id/btnSolicitar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/prestamo_btn_solicitar"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/prestamo_btn_solicitar" />
+                <!-- Selector de equipos con icono -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp">
 
-    </LinearLayout>
-</ScrollView>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_agenda"
+                        app:tint="#34495e"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerEquipos"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="48dp"
+                        android:padding="12dp"
+                        android:contentDescription="@string/prestamo_spinner_seleccionar_equipo" />
+                </LinearLayout>
+
+                <!-- Campo Cantidad -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_sort_by_size"
+                        app:tint="#34495e"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/edtCantidad"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        android:padding="12dp"
+                        android:hint="@string/inventario_hint_cantidad"
+                        android:contentDescription="@string/inventario_hint_cantidad"
+                        android:background="@android:drawable/editbox_background" />
+                </LinearLayout>
+
+                <!-- Observaciones -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="top"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_info_details"
+                        app:tint="#7f8c8d"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/edtObservaciones"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/prestamo_hint_observaciones"
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:background="@android:drawable/editbox_background"
+                        android:padding="10dp"/>
+                </LinearLayout>
+
+                <!-- Botón flotante de solicitud -->
+                <Button
+                    android:id="@+id/btnSolicitar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prestamo_btn_solicitar"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#27ae60"
+                    android:elevation="4dp"
+                    android:minHeight="48dp"
+                    android:drawableStart="@android:drawable/ic_menu_send"
+                    android:drawablePadding="8dp"
+                    android:textAllCaps="false"
+                    android:contentDescription="@string/prestamo_btn_solicitar" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
+</FrameLayout>
