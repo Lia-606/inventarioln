@@ -1,4 +1,4 @@
-package com.liapv.myapplication.prestamos;
+package com.liapv.myapplication.modelos;
 
 public class Prestamo {
     private String id;
@@ -10,6 +10,8 @@ public class Prestamo {
     private String estado; // "Pendiente", "Aprobado", "Rechazado", "Devuelto"
     private String fechaDevolucion; // null si no devuelto
     private String observaciones; // opcional
+    private int cantidad;
+    private int cantidadDevuelta = 0; // Inicial en 0
 
     // Constructor vacío (requerido por Firebase)
     public Prestamo() { }
@@ -22,6 +24,8 @@ public class Prestamo {
                     String nombreSolicitante,
                     String fechaSolicitud,
                     String estado,
+                    int cantidad,
+                    int cantidadDevuelta,
                     String fechaDevolucion,
                     String observaciones) {
         this.id = id;
@@ -33,6 +37,8 @@ public class Prestamo {
         this.estado = estado;
         this.fechaDevolucion = fechaDevolucion;
         this.observaciones = observaciones;
+        this.cantidad = cantidad;
+        this.cantidadDevuelta = cantidadDevuelta;
     }
 
     // Getters y setters
@@ -63,6 +69,25 @@ public class Prestamo {
     public String getObservaciones() { return observaciones; }
     public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+
+
+    public int getCantidadDevuelta() {
+        return cantidadDevuelta;
+    }
+
+    public void setCantidadDevuelta(int cantidadDevuelta) {
+        this.cantidadDevuelta = cantidadDevuelta;
+    }
+
+
     @Override
     public String toString() {
         return "Prestamo{" +
@@ -75,6 +100,10 @@ public class Prestamo {
                 ", estado='" + estado + '\'' +
                 ", fechaDevolucion='" + fechaDevolucion + '\'' +
                 ", observaciones='" + observaciones + '\'' +
+                ", cantidad=" + cantidad +
+                ", cantidad=" + cantidad +
                 '}';
     }
+
+
 }

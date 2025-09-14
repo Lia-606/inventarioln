@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.liapv.myapplication.R;
+import com.liapv.myapplication.modelos.Prestamo;
 
 import java.util.List;
 

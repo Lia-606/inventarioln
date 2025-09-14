@@ -3,115 +3,183 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="#FAFAFA"
+    android:padding="24dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal">
 
-        <!-- Nombre del equipo -->
+        <!-- Campo Nombre -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/equipos_hint_nombre"
-            app:boxStrokeColor="@color/purple_500">
+            android:layout_marginBottom="12dp"
+            android:hint="@string/equipos_label_nombre"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#4CAF50"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
-
                 android:id="@+id/etNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"/>
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Tipo -->
+        <!-- Campo Tipo -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/equipos_hint_tipo">
+            android:layout_marginBottom="12dp"
+            android:hint="@string/equipos_label_tipo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#4CAF50"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTipo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Marca -->
+        <!-- Campo Marca -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/equipos_hint_marca">
+            android:layout_marginBottom="12dp"
+            android:hint="@string/equipos_label_marca"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#9E9E9E"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etMarca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Modelo -->
+        <!-- Campo Modelo -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/equipos_hint_modelo">
+            android:layout_marginBottom="12dp"
+            android:hint="@string/equipos_label_modelo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#9E9E9E"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etModelo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Estado -->
+        <!-- Campo Estado -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/equipos_hint_estado">
+            android:layout_marginBottom="12dp"
+            android:hint="@string/equipos_label_estado"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#9E9E9E"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEstado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Ubicación -->
+        <!-- Campo Ubicación -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/equipos_hint_ubicacion">
+            android:layout_marginBottom="12dp"
+            android:hint="@string/equipos_label_ubicacion"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#9E9E9E"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUbicacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textCapWords"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Código único (autogenerado) -->
+        <!-- Campo Código (Deshabilitado) -->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/equipos_hint_codigo_unico">
+            android:layout_marginBottom="12dp"
+            android:hint="Código"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#9E9E9E"
+            app:boxBackgroundColor="#F1F1F1"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etCodigo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:clickable="false"
-                android:enabled="true"
-                android:inputType="none"/>
+                android:inputType="text"
+                android:enabled="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo Stock -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:hint="stock"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="#4CAF50"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Botón Guardar -->
@@ -119,8 +187,14 @@
             android:id="@+id/btnGuardarEquipo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/equipos_btn_guardar"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_marginTop="16dp" />
+            android:text="@string/btn_guardar"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#4CAF50"
+            android:elevation="4dp"
+            android:paddingVertical="12dp" />
+
     </LinearLayout>
 </ScrollView>

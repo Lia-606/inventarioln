@@ -3,6 +3,11 @@ package com.liapv.myapplication.modelos;
 import java.io.Serializable;
 
 public class Equipo implements Serializable {
+
+    @Override
+    public String toString() {
+        return (nombre != null ? nombre : "N/A") + " - " + (codigo != null ? codigo : "N/A");
+    }
     private String id;
     private String nombre;
     private String tipo;
@@ -18,7 +23,7 @@ public class Equipo implements Serializable {
     }
 
     // Constructor sin ID (para crear nuevos equipos)
-    public Equipo(String nombre, String tipo, String marca, String modelo, String estado, String ubicacion, String codigo) {
+    public Equipo(String nombre, String tipo, String marca, String modelo, String estado, String ubicacion, String codigo, int stock) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.marca = marca;
@@ -26,6 +31,7 @@ public class Equipo implements Serializable {
         this.estado = estado;
         this.ubicacion = ubicacion;
         this.codigo = codigo;
+        this.stock = stock;
     }
 
     // Constructor con ID y stock

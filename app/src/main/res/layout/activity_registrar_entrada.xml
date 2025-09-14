@@ -1,73 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@drawable/fondo3">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:clipToPadding="false">
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/entrada_titulo"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            android:textColor="@android:color/black" />
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:padding="20dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:strokeColor="#DDDDDD"
+            app:strokeWidth="1dp">
 
-        <EditText
-            android:id="@+id/edtEquipoId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/entrada_hint_equipo_id"
-            android:inputType="text"
-            android:textColor="@android:color/black"
-            android:minHeight="48dp"
-            android:padding="12dp"
-            android:autofillHints="username" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edtCantidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/entrada_hint_cantidad"
-            android:inputType="number"
-            android:textColor="@android:color/black"
-            android:minHeight="48dp"
-            android:padding="12dp"
-            android:autofillHints="number" />
+                <!-- Título -->
+                <TextView
+                    android:id="@+id/tvTituloEntrada"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/entrada_titulo"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#2c3e50"
+                    android:gravity="center_horizontal"
+                    android:drawableTop="@android:drawable/ic_input_add"
+                    android:drawablePadding="8dp"
+                    android:paddingBottom="12dp" />
 
-        <EditText
-            android:id="@+id/edtProveedor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/entrada_hint_proveedor"
-            android:inputType="text"
-            android:textColor="@android:color/black"
-            android:minHeight="48dp"
-            android:padding="12dp"
-            android:autofillHints="name" />
+                <!-- Spinner de Equipos -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp">
 
-        <EditText
-            android:id="@+id/edtResponsable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/entrada_hint_responsable"
-            android:inputType="text"
-            android:textColor="@android:color/black"
-            android:minHeight="48dp"
-            android:padding="12dp"
-            android:autofillHints="name" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_agenda"
+                        app:tint="#34495e"
+                        android:layout_marginEnd="8dp"/>
 
-        <Button
-            android:id="@+id/btnRegistrarEntrada"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:minHeight="48dp"
-            android:text="@string/entrada_btn_registrar" />
-    </LinearLayout>
-</ScrollView>
+                    <Spinner
+                        android:id="@+id/spinnerEquiposEntrada"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="48dp"
+                        android:padding="12dp"
+                        android:prompt="@string/spinner_prompt_seleccione_equipo"
+                        android:contentDescription="@string/spinner_prompt_seleccione_equipo"/>
+                </LinearLayout>
+
+                <!-- Cantidad -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_sort_by_size"
+                        app:tint="#34495e"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/edtCantidad"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/entrada_hint_cantidad"
+                        android:inputType="number"
+                        android:minHeight="48dp"
+                        android:padding="12dp"
+                        android:autofillHints="number"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+
+                <!-- Proveedor -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_send"
+                        app:tint="#34495e"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/edtProveedor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/entrada_hint_proveedor"
+                        android:inputType="text"
+                        android:minHeight="48dp"
+                        android:padding="12dp"
+                        android:autofillHints="name"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+
+                <!-- Responsable -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_myplaces"
+                        app:tint="#34495e"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/edtResponsable"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/entrada_hint_responsable"
+                        android:inputType="text"
+                        android:minHeight="48dp"
+                        android:padding="12dp"
+                        android:autofillHints="name"
+                        android:background="@android:drawable/editbox_background"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+
+                <!-- Botón registrar -->
+                <Button
+                    android:id="@+id/btnRegistrarEntrada"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/entrada_btn_registrar"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#27ae60"
+                    android:elevation="4dp"
+                    android:minHeight="48dp"
+                    android:drawableStart="@android:drawable/ic_menu_save"
+                    android:drawablePadding="8dp"
+                    android:textAllCaps="false"
+                    android:contentDescription="@string/entrada_btn_registrar" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
+</FrameLayout>

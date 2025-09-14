@@ -1,36 +1,32 @@
 package com.liapv.myapplication.inventario;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.*;
 import com.liapv.myapplication.R;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 public class RegistrarEntradaActivity extends AppCompatActivity {
 
-    private EditText edtEquipoId, edtCantidad, edtProveedor, edtResponsable;
+    private Spinner spinnerEquiposEntrada;
+    private EditText edtCantidad, edtProveedor, edtResponsable;
     private Button btnRegistrar;
+
     private DatabaseReference dbInventario, dbEquipos;
+
+    private Map<String, Equipo> mapEquiposEntrada = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_entrada);
 
-        edtEquipoId = findViewById(R.id.edtEquipoId);
+        spinnerEquiposEntrada = findViewById(R.id.spinnerEquiposEntrada);
         edtCantidad = findViewById(R.id.edtCantidad);
         edtProveedor = findViewById(R.id.edtProveedor);
         edtResponsable = findViewById(R.id.edtResponsable);
@@ -39,16 +35,65 @@ public class RegistrarEntradaActivity extends AppCompatActivity {
         dbInventario = FirebaseDatabase.getInstance().getReference("inventario").child("entradas");
         dbEquipos = FirebaseDatabase.getInstance().getReference("equipos");
 
+        cargarEquipos();
+
         btnRegistrar.setOnClickListener(v -> registrarEntrada());
     }
 
+    private void cargarEquipos() {
+        dbEquipos.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> nombresEquipos = new ArrayList<>();
+                nombresEquipos.add("Seleccione un equipo");
+
+                mapEquiposEntrada.clear();
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Equipo equipo = ds.getValue(Equipo.class);
+                    if (equipo != null) {
+                        equipo.setId(ds.getKey());
+
+                        String key = (equipo.getNombre() != null ? equipo.getNombre() : "Sin nombre")
+                                + " - " + (equipo.getCodigo() != null ? equipo.getCodigo() : "Sin código");
+
+                        nombresEquipos.add(key);
+                        mapEquiposEntrada.put(key, equipo);
+                    }
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(RegistrarEntradaActivity.this,
+                        android.R.layout.simple_spinner_item, nombresEquipos);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerEquiposEntrada.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(RegistrarEntradaActivity.this, "Error al cargar equipos", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void registrarEntrada() {
-        String equipoId = edtEquipoId.getText().toString().trim();
+        String seleccion = (String) spinnerEquiposEntrada.getSelectedItem();
+        if (seleccion == null || seleccion.equals("Seleccione un equipo")) {
+            Toast.makeText(this, "Seleccione un equipo válido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Equipo equipoSeleccionado = mapEquiposEntrada.get(seleccion);
+        if (equipoSeleccionado == null) {
+            Toast.makeText(this, "Equipo no válido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String equipoId = equipoSeleccionado.getId();
         String cantidadStr = edtCantidad.getText().toString().trim();
         String proveedor = edtProveedor.getText().toString().trim();
         String responsable = edtResponsable.getText().toString().trim();
 
-        if (equipoId.isEmpty() || cantidadStr.isEmpty() || proveedor.isEmpty() || responsable.isEmpty()) {
+        if (cantidadStr.isEmpty() || proveedor.isEmpty() || responsable.isEmpty()) {
             Toast.makeText(this, getString(R.string.entrada_msg_complete_campos), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -103,7 +148,6 @@ public class RegistrarEntradaActivity extends AppCompatActivity {
         });
     }
 
-
     // Modelo de entrada para Firebase
     public static class Entrada {
         public String equipoId, fecha, hora, proveedor, responsable;
@@ -121,5 +165,23 @@ public class RegistrarEntradaActivity extends AppCompatActivity {
             this.proveedor = proveedor;
             this.responsable = responsable;
         }
+    }
+
+    // Clase Equipo para mapear datos (puedes extraer esta clase en otro archivo)
+    public static class Equipo {
+        private String id;
+        private String nombre;
+        private String codigo;
+
+        public Equipo() {}
+
+        public String getId() { return id; }
+        public void setId(String id) { this.id = id; }
+
+        public String getNombre() { return nombre; }
+        public void setNombre(String nombre) { this.nombre = nombre; }
+
+        public String getCodigo() { return codigo; }
+        public void setCodigo(String codigo) { this.codigo = codigo; }
     }
 }
