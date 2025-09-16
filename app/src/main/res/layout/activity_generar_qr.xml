@@ -1,0 +1,31 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etContenidoQR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contenido del QR"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:enabled="false" /> <!-- Desactiva edición si quieres -->
+
+    <ImageView
+        android:id="@+id/ivQRGenerado"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btnGenerarQR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generar QR manualmente"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

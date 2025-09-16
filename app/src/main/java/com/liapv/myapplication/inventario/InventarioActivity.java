@@ -3,7 +3,6 @@ package com.liapv.myapplication.inventario;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +20,7 @@ public class InventarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventario); // Asegúrate de tener este layout
+        setContentView(R.layout.activity_inventario);
 
         btnVerStock = findViewById(R.id.btnVerStock);
         btnRegistrarEntrada = findViewById(R.id.btnRegistrarEntrada);
@@ -47,7 +46,7 @@ public class InventarioActivity extends AppCompatActivity {
                 startActivity(new Intent(this, StockActivity.class)));
 
         btnRegistrarEntrada.setOnClickListener(v -> {
-            if (userRol.equalsIgnoreCase("Admin") || userRol.equalsIgnoreCase("Administrador")) {
+            if (rolPermitido("Admin", "Supervisor")) {
                 startActivity(new Intent(this, RegistrarEntradaActivity.class));
             } else {
                 Toast.makeText(this, "No tienes permiso para registrar entradas", Toast.LENGTH_SHORT).show();
@@ -55,7 +54,7 @@ public class InventarioActivity extends AppCompatActivity {
         });
 
         btnRegistrarSalida.setOnClickListener(v -> {
-            if (userRol.equalsIgnoreCase("Admin") || userRol.equalsIgnoreCase("Administrador")) {
+            if (rolPermitido("Admin", "Supervisor")) {
                 startActivity(new Intent(this, RegistrarSalidaActivity.class));
             } else {
                 Toast.makeText(this, "No tienes permiso para registrar salidas", Toast.LENGTH_SHORT).show();
@@ -64,9 +63,18 @@ public class InventarioActivity extends AppCompatActivity {
     }
 
     private void configurarUI(String rol) {
-        if (rol.equalsIgnoreCase("Instructor") || rol.equalsIgnoreCase("Supervisor")) {
+        if (rol == null) return;
+
+        if (!rolPermitido("Admin", "Supervisor")) {
             btnRegistrarEntrada.setVisibility(View.GONE);
             btnRegistrarSalida.setVisibility(View.GONE);
         }
+    }
+
+    private boolean rolPermitido(String... roles) {
+        for (String rol : roles) {
+            if (userRol.equalsIgnoreCase(rol)) return true;
+        }
+        return false;
     }
 }

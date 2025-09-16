@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".prestamos.ListaDevolucionesActivity"
+            android:name=".equipos.CaptureActivityPortrait"
+            android:screenOrientation="portrait"
+            android:theme="@style/zxing_CaptureTheme"
+            />
+
+        <activity
+            android:name=".equipos.SeleccionarEquipoQRActivity"
+            android:exported="false" />
+        <activity
+            android:name=".equipos.GenerarQRActivity"
             android:exported="false" />
         <activity
             android:name=".prestamos.PrestamoActivity"

@@ -23,9 +23,12 @@ public class SolicitudesAdapter extends RecyclerView.Adapter<SolicitudesAdapter.
 
     private List<Prestamo> listaSolicitudes;
     private final OnSolicitudActionListener listener;
+    private final boolean puedeAprobar; // 👈 Nuevo atributo
 
-    public SolicitudesAdapter(List<Prestamo> listaSolicitudes, OnSolicitudActionListener listener) {
+    // 👇 Nuevo constructor con 3 parámetros
+    public SolicitudesAdapter(List<Prestamo> listaSolicitudes, boolean puedeAprobar, OnSolicitudActionListener listener) {
         this.listaSolicitudes = listaSolicitudes;
+        this.puedeAprobar = puedeAprobar;
         this.listener = listener;
     }
 
@@ -53,8 +56,12 @@ public class SolicitudesAdapter extends RecyclerView.Adapter<SolicitudesAdapter.
         holder.tvFechaSolicitud.setText(String.format("%s: %s", context.getString(R.string.label_fecha), fecha));
         holder.tvEstado.setText(String.format("%s: %s", context.getString(R.string.label_estado), estado));
 
-        // Mostrar u ocultar botones según estado
-        holder.layoutBotones.setVisibility("Pendiente".equals(estado) ? View.VISIBLE : View.GONE);
+        // 👇 Mostrar u ocultar botones según estado y permisos
+        if ("Pendiente".equalsIgnoreCase(estado) && puedeAprobar) {
+            holder.layoutBotones.setVisibility(View.VISIBLE);
+        } else {
+            holder.layoutBotones.setVisibility(View.GONE);
+        }
 
         // Acciones
         holder.btnAprobar.setOnClickListener(v -> listener.onAprobar(prestamo));

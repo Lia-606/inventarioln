@@ -18,7 +18,7 @@ public class EquipoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_equipo);
+        setContentView(R.layout.activity_equipos);
 
         btnVerLista = findViewById(R.id.btnVerListaEquipos);
         btnRegistrarNuevo = findViewById(R.id.btnRegistrarEquipo);
@@ -29,11 +29,13 @@ public class EquipoActivity extends AppCompatActivity {
         configurarUI(userRol);
 
         btnVerLista.setOnClickListener(v -> {
-            startActivity(new Intent(this, ListaEquiposActivity.class));
+            Intent intent = new Intent(this, ListaEquiposActivity.class);
+            intent.putExtra("rol", userRol);
+            startActivity(intent);
         });
 
         btnRegistrarNuevo.setOnClickListener(v -> {
-            if (rolPermitido("admin", "administrador", "supervisor")) {
+            if (rolPermitido("Admin", "Supervisor")) {
                 startActivity(new Intent(this, FormularioEquipoActivity.class));
             } else {
                 Toast.makeText(this, "No tienes permiso para registrar equipos", Toast.LENGTH_SHORT).show();
@@ -41,16 +43,23 @@ public class EquipoActivity extends AppCompatActivity {
         });
 
         btnGenerarQR.setOnClickListener(v -> {
-            startActivity(new Intent(this, QRGenerator.class));
+            if (rolPermitido("Admin", "Supervisor")) {
+                startActivity(new Intent(this, SeleccionarEquipoQRActivity.class)); // ✅ CORRECTO
+            } else {
+                Toast.makeText(this, "No tienes permiso para generar códigos QR", Toast.LENGTH_SHORT).show();
+            }
         });
     }
+
 
     private void configurarUI(String rol) {
         if (rol == null) return;
 
-        if (rol.equalsIgnoreCase("instructor")) {
+        if (!rolPermitido("Admin", "Supervisor")) {
             btnRegistrarNuevo.setVisibility(View.GONE);
+            btnGenerarQR.setVisibility(View.GONE); //  Oculta el botón si no tiene permisos
         }
+
     }
 
     private boolean rolPermitido(String... roles) {
@@ -58,5 +67,10 @@ public class EquipoActivity extends AppCompatActivity {
             if (userRol.equalsIgnoreCase(rol)) return true;
         }
         return false;
+    }
+
+    // ✅ Este es el método que te faltaba
+    public String getUserRol() {
+        return userRol;
     }
 }

@@ -36,15 +36,16 @@ public class DevolucionesAdapter extends RecyclerView.Adapter<DevolucionesAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Prestamo prestamo = devoluciones.get(position);
 
-        holder.tvEquipo.setText("Equipo: " + prestamo.getEquipoNombre());
-        holder.tvSolicitante.setText("Solicitante: " + prestamo.getNombreSolicitante());
-        holder.tvFechaSolicitud.setText("Fecha Solicitud: " + prestamo.getFechaSolicitud());
-        holder.tvEstado.setText("Estado: " + prestamo.getEstado());
+        holder.tvEquipo.setText("Equipo: " + (prestamo.getEquipoNombre() != null ? prestamo.getEquipoNombre() : "N/A"));
+        holder.tvSolicitante.setText("Solicitante: " + (prestamo.getNombreSolicitante() != null ? prestamo.getNombreSolicitante() : "N/A"));
+        holder.tvFechaSolicitud.setText("Fecha Solicitud: " + (prestamo.getFechaSolicitud() != null ? prestamo.getFechaSolicitud() : "N/A"));
+        holder.tvEstado.setText("Estado: " + (prestamo.getEstado() != null ? prestamo.getEstado() : "N/A"));
 
-        // En esta lista de devoluciones ocultamos los botones (solo visualización)
+        // Ocultamos los botones porque es sólo visualización
         holder.btnAprobar.setVisibility(View.GONE);
         holder.btnRechazar.setVisibility(View.GONE);
     }
+
 
     @Override
     public int getItemCount() {

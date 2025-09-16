@@ -184,6 +184,8 @@
     <string name="detalle_equipo_btn_editar">Editar</string>
     <string name="detalle_equipo_btn_eliminar">Eliminar</string>
     <string name="detalle_equipo_btn_volver">Volver a la lista</string>
+    <string name="qr_generado">QR Generado</string>
+
 
     <!-- Mensajes de confirmación -->
     <string name="equipos_msg_confirmar_eliminacion">¿Está seguro que desea eliminar este equipo?</string>

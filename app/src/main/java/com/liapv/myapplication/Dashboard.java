@@ -11,6 +11,10 @@ import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.liapv.myapplication.equipos.ListaEquiposActivity;
+import com.liapv.myapplication.inventario.StockActivity;
+import com.liapv.myapplication.prestamos.DevolucionesBottomSheet;
+import com.liapv.myapplication.prestamos.ListaSolicitudesActivity;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -89,28 +93,51 @@ public class Dashboard extends AppCompatActivity {
         });
 
         cvEquipos.setOnClickListener(v -> {
-            // Todos acceden a InventarioActivity, pero ahí se restringe qué pueden hacer
-            Intent intent = new Intent(this, com.liapv.myapplication.equipos.EquipoActivity.class);
-            intent.putExtra("rol", userRol);
-            startActivity(intent);
+            if ("supervisor".equalsIgnoreCase(userRol)) {
+                // 👉 Supervisor solo ve la lista
+                Intent intent = new Intent(this, com.liapv.myapplication.equipos.EquipoActivity.class);
+                intent.putExtra("rol", userRol);
+                startActivity(intent);
+            } else {
+                // 👉 Admin o instructor van al módulo completo
+                Intent intent = new Intent(this, com.liapv.myapplication.equipos.EquipoActivity.class);
+                intent.putExtra("rol", userRol);
+                startActivity(intent);
+            }
         });
 
         cvInventario.setOnClickListener(v -> {
-            // Todos acceden a InventarioActivity, pero ahí se restringe qué pueden hacer
-            Intent intent = new Intent(this, com.liapv.myapplication.inventario.InventarioActivity.class);
-            intent.putExtra("rol", userRol);
-            startActivity(intent);
+            if ("supervisor".equalsIgnoreCase(userRol)) {
+                // 👉 Supervisor va directamente a StockActivity
+                Intent intent = new Intent(this, com.liapv.myapplication.equipos.EquipoActivity.class);
+                startActivity(intent);
+            } else {
+                // 👉 Admin o instructor van al módulo completo
+                Intent intent = new Intent(this, com.liapv.myapplication.inventario.InventarioActivity.class);
+                intent.putExtra("rol", userRol);
+                startActivity(intent);
+            }
         });
 
         cvPrestamos.setOnClickListener(v -> {
-            Intent intent = new Intent(this, com.liapv.myapplication.prestamos.PrestamoActivity.class);
-            intent.putExtra("rol", userRol);
-            startActivity(intent);
+            if ("supervisor".equalsIgnoreCase(userRol)) {
+                // 👉 Supervisor puede ver lista de solicitudes y devoluciones
+                Intent intent = new Intent(this, com.liapv.myapplication.equipos.EquipoActivity.class);
+                intent.putExtra("rol", userRol);
+                startActivity(intent);
+
+                // 👇 También abrir lista de devoluciones (si quieres en otra CardView, cámbialo)
+                // startActivity(new Intent(this, ListaDevolucionesActivity.class));
+            } else {
+                // 👉 Otros van al módulo principal de préstamos
+                Intent intent = new Intent(this, com.liapv.myapplication.prestamos.PrestamoActivity.class);
+                intent.putExtra("rol", userRol);
+                startActivity(intent);
+            }
         });
 
         cvReportes.setOnClickListener(v -> {
             if (rolPermitido("administrador", "supervisor", "admin")) {
-                // TODO: Cambiar por tu actividad real de reportes
                 Toast.makeText(this, "Módulo de reportes aún no implementado", Toast.LENGTH_SHORT).show();
             } else {
                 mostrarAccesoDenegado();
