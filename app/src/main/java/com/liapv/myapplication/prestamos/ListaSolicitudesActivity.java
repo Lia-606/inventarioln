@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.*;
 import com.liapv.myapplication.R;
 import com.liapv.myapplication.modelos.Equipo;
@@ -24,6 +25,7 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
     private DatabaseReference dbPrestamos;
 
     private List<Prestamo> listaSolicitudes = new ArrayList<>();
+    private boolean puedeAprobar = false; // Solo true si el usuario es Supervisor
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +35,44 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
         rvSolicitudes = findViewById(R.id.rvSolicitudes);
         rvSolicitudes.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new SolicitudesAdapter(listaSolicitudes, new SolicitudesAdapter.OnSolicitudActionListener() {
-            @Override
-            public void onAprobar(Prestamo prestamo) {
-                cambiarEstadoPrestamo(prestamo, getString(R.string.prestamo_estado_aprobado));
-            }
-
-            @Override
-            public void onRechazar(Prestamo prestamo) {
-                cambiarEstadoPrestamo(prestamo, getString(R.string.prestamo_estado_rechazado));
-            }
-        });
-        rvSolicitudes.setAdapter(adapter);
-
         dbPrestamos = FirebaseDatabase.getInstance().getReference("prestamos");
 
-        cargarSolicitudes();
-        getWindow().setBackgroundDrawableResource(R.drawable.fondo4);
+        // Obtener rol del usuario actual
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference refRol = FirebaseDatabase.getInstance().getReference("usuarios").child(uid).child("rol");
 
+        refRol.get().addOnSuccessListener(snapshot -> {
+            if (snapshot.exists()) {
+                String rol = snapshot.getValue(String.class);
+                if ("Supervisor".equalsIgnoreCase(rol)) {
+                    puedeAprobar = true;
+                }
+            }
+
+            // Inicializar el adapter después de saber el rol
+            String rolUsuario = getIntent().getStringExtra("rol");
+            boolean puedeAprobar = "Supervisor".equalsIgnoreCase(rolUsuario);
+
+            adapter = new SolicitudesAdapter(listaSolicitudes, puedeAprobar, new SolicitudesAdapter.OnSolicitudActionListener() {
+                @Override
+                public void onAprobar(Prestamo prestamo) {
+                    cambiarEstadoPrestamo(prestamo, getString(R.string.prestamo_estado_aprobado));
+                }
+
+                @Override
+                public void onRechazar(Prestamo prestamo) {
+                    cambiarEstadoPrestamo(prestamo, getString(R.string.prestamo_estado_rechazado));
+                }
+            });
+
+            rvSolicitudes.setAdapter(adapter);
+            cargarSolicitudes(); // cargar después de configurar adapter
+
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Error al obtener el rol del usuario", Toast.LENGTH_SHORT).show();
+        });
+
+        getWindow().setBackgroundDrawableResource(R.drawable.fondo4);
     }
 
     private void cargarSolicitudes() {
@@ -64,7 +86,6 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
                         listaSolicitudes.add(p);
                     }
                 }
-
                 adapter.actualizarLista(listaSolicitudes);
             }
 
@@ -101,15 +122,17 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
                 public Transaction.Result doTransaction(@NonNull MutableData currentData) {
                     Equipo equipo = currentData.getValue(Equipo.class);
                     if (equipo == null) {
-                        return Transaction.abort(); // Equipo no existe
+                        return Transaction.abort();
                     }
 
                     int stockActual = equipo.getStock();
-                    if (stockActual <= 0) {
-                        return Transaction.abort(); // Sin stock disponible
+                    int cantidad = prestamo.getCantidad();
+
+                    if (stockActual < cantidad) {
+                        return Transaction.abort(); // Sin stock suficiente
                     }
 
-                    equipo.setStock(stockActual - 1);
+                    equipo.setStock(stockActual - cantidad);
                     currentData.setValue(equipo);
                     return Transaction.success(currentData);
                 }
@@ -117,14 +140,12 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot snapshot) {
                     if (committed) {
-                        // Stock actualizado correctamente, ahora actualizar préstamo
                         prestamoRef.setValue(prestamo).addOnSuccessListener(aVoid -> {
                             Toast.makeText(ListaSolicitudesActivity.this, getString(R.string.prestamo_msg_aprobado), Toast.LENGTH_SHORT).show();
                         }).addOnFailureListener(e -> {
                             Toast.makeText(ListaSolicitudesActivity.this, getString(R.string.prestamo_msg_error_actualizar), Toast.LENGTH_SHORT).show();
                         });
                     } else {
-                        // Transacción no se realizó, puede ser por falta de stock
                         Toast.makeText(ListaSolicitudesActivity.this, getString(R.string.prestamo_msg_stock_insuficiente), Toast.LENGTH_SHORT).show();
                     }
                 }

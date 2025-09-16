@@ -178,3 +178,8 @@ public class RegistrarSalidaActivity extends AppCompatActivity {
         public void setCodigo(String codigo) { this.codigo = codigo; }
     }
 }
+
+
+
+
+

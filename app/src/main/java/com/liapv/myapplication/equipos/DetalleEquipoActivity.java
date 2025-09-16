@@ -1,14 +1,13 @@
 package com.liapv.myapplication.equipos;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.*;
+import android.view.View;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.liapv.myapplication.modelos.Equipo;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liapv.myapplication.R;
@@ -20,6 +19,7 @@ public class DetalleEquipoActivity extends AppCompatActivity {
     private Button btnEditar, btnEliminar, btnVolver;
     private DatabaseReference equiposRef;
     private Equipo equipo;
+    private String userRol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class DetalleEquipoActivity extends AppCompatActivity {
         equiposRef = FirebaseDatabase.getInstance().getReference("equipos");
 
         equipo = (Equipo) getIntent().getSerializableExtra("equipo");
+        userRol = getIntent().getStringExtra("rol");
 
         if (equipo != null) {
             tvNombre.setText(equipo.getNombre());
@@ -53,6 +54,20 @@ public class DetalleEquipoActivity extends AppCompatActivity {
             tvCodigo.setText(equipo.getCodigo());
 
             generarQR(equipo.getCodigo());
+
+            Toast.makeText(this, "Mostrando equipo: " + equipo.getNombre(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "No se recibió equipo", Toast.LENGTH_SHORT).show();
+            finish();  // Opcional: cerrar la actividad si no hay equipo
+            return;
+        }
+
+        if (userRol != null && userRol.equalsIgnoreCase("Admin")) {
+            btnEditar.setVisibility(View.VISIBLE);
+            btnEliminar.setVisibility(View.VISIBLE);
+        } else {
+            btnEditar.setVisibility(View.GONE);
+            btnEliminar.setVisibility(View.GONE);
         }
 
         btnEditar.setOnClickListener(v -> {

@@ -1,12 +1,14 @@
 package com.liapv.myapplication.equipos;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.graphics.Bitmap;
+import android.view.*;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +19,26 @@ import com.liapv.myapplication.modelos.Equipo;
 import java.util.List;
 
 public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder> {
+
     private Context context;
     private List<Equipo> listaEquipos;
+    private boolean modoQR = false;
+    private String userRol = "";
 
-    public EquipoAdapter(Context context, List<Equipo> listaEquipos) {
+    // ✅ Constructor para modo normal con rol
+    public EquipoAdapter(Context context, List<Equipo> listaEquipos, String userRol) {
         this.context = context;
         this.listaEquipos = listaEquipos;
+        this.userRol = userRol;
+        this.modoQR = false;
+    }
+
+    // ✅ Constructor para modo QR (no usa rol)
+    public EquipoAdapter(Context context, List<Equipo> listaEquipos, boolean modoQR) {
+        this.context = context;
+        this.listaEquipos = listaEquipos;
+        this.modoQR = modoQR;
+        this.userRol = ""; // No necesario en modo QR
     }
 
     @NonNull
@@ -39,19 +55,33 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
         holder.tvTipo.setText(equipo.getTipo());
         holder.tvCodigo.setText(equipo.getCodigo());
 
-        // Clic en todo el item lleva al detalle
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetalleEquipoActivity.class);
-            intent.putExtra("equipo", equipo);
-            context.startActivity(intent);
-        });
+        if (modoQR) {
+            // 👉 Modo QR
+            holder.itemView.setOnClickListener(v -> mostrarDialogoQR(equipo));
+            holder.btnEditar.setVisibility(View.GONE);
+        } else {
+            // 👉 Modo normal: abrir detalle
+            holder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, DetalleEquipoActivity.class);
+                intent.putExtra("equipo", equipo);
+                intent.putExtra("rol", userRol);
+                context.startActivity(intent);
+            });
 
-        // Clic en botón editar también lleva al detalle (puede cambiarse para formulario de edición)
-        holder.btnEditar.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetalleEquipoActivity.class);
-            intent.putExtra("equipo", equipo);
-            context.startActivity(intent);
-        });
+            holder.btnEditar.setOnClickListener(v -> {
+                Intent intent = new Intent(context, DetalleEquipoActivity.class);
+                intent.putExtra("equipo", equipo);
+                intent.putExtra("rol", userRol);
+                context.startActivity(intent);
+            });
+
+            // 👮 Solo Admin puede editar
+            if ("Admin".equalsIgnoreCase(userRol)) {
+                holder.btnEditar.setVisibility(View.VISIBLE);
+            } else {
+                holder.btnEditar.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -69,6 +99,25 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
             tvTipo = itemView.findViewById(R.id.tvTipo);
             tvCodigo = itemView.findViewById(R.id.tvCodigo);
             btnEditar = itemView.findViewById(R.id.btnEditar);
+        }
+    }
+
+    private void mostrarDialogoQR(Equipo equipo) {
+        try {
+            Bitmap qrBitmap = QRGenerator.generarQR(equipo.getCodigo());
+
+            View qrView = LayoutInflater.from(context).inflate(R.layout.dialog_qr, null);
+            ImageView ivQR = qrView.findViewById(R.id.ivDialogQR);
+            ivQR.setImageBitmap(qrBitmap);
+
+            new AlertDialog.Builder(context)
+                    .setTitle("Código QR: " + equipo.getNombre())
+                    .setView(qrView)
+                    .setPositiveButton("Cerrar", null)
+                    .show();
+
+        } catch (Exception e) {
+            Toast.makeText(context, "Error al generar QR", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -86,6 +86,10 @@ public class FormularioEquipoActivity extends AppCompatActivity {
                 equiposRef.child(id).setValue(equipo)
                         .addOnSuccessListener(aVoid -> {
                             Toast.makeText(this, "Equipo registrado exitosamente", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(FormularioEquipoActivity.this, GenerarQRActivity.class);
+                            intent.putExtra("contenidoQR", equipo.getCodigo()); // este será el contenido del QR
+                            startActivity(intent);
+
                             finish();
                         })
                         .addOnFailureListener(e -> Toast.makeText(this, "Error al registrar equipo", Toast.LENGTH_SHORT).show());

@@ -8,7 +8,6 @@
     android:background="@drawable/fondo2"
     tools:context=".equipos.ListaEquiposActivity">
 
-    <!-- Toolbar moderno -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/topAppBar"
         android:layout_width="0dp"
@@ -28,7 +27,6 @@
             android:layout_gravity="center" />
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <!-- Contenedor del RecyclerView con sombra y bordes -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardRecycler"
         android:layout_width="0dp"
@@ -51,7 +49,7 @@
             android:scrollbars="vertical" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Botón redondo para buscar (MaterialCardView con ImageView dentro), abajo a la derecha, junto al botón añadir -->
+    <!-- Botón de búsqueda -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardBuscar"
         android:layout_width="56dp"
@@ -67,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:id="@+id/etBuscar"
+            android:id="@+id/ivBuscar"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
@@ -76,7 +74,6 @@
             app:tint="@color/purple_700" />
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- FloatingActionButton para agregar equipo -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAgregarEquipo"
         android:layout_width="wrap_content"
