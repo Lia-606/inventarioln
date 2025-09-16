@@ -47,6 +47,10 @@ dependencies {
     implementation 'com.google.zxing:core:3.5.2'
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
+    //pdf y excel
+    //implementation 'org.apache.poi:poi:5.2.3:android'
+    //implementation 'org.apache.poi:poi-ooxml:5.2.3:android'
+
 
     implementation libs.appcompat
     implementation libs.material

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_inventario_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:clipToPadding="false"
+    tools:context=".reportes.FragmentInventario">
+
+    <!-- FILTROS - Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardFiltros"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Row filtros: Rango de fechas y botones -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvFechaInicio"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Fecha inicio"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:background="?android:attr/editTextBackground" />
+
+                <TextView
+                    android:id="@+id/tvFechaFin"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Fecha fin"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:background="?android:attr/editTextBackground" />
+
+                <Button
+                    android:id="@+id/btnFiltrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filtrar"
+                    android:layout_marginStart="8dp"
+                    android:paddingHorizontal="14dp"
+                    android:backgroundTint="#1E3A8A"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btnLimpiarFiltros"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Limpiar"
+                    android:layout_marginStart="6dp"
+                    android:paddingHorizontal="14dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- RECYCLERVIEW - Lista de movimientos / stock -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvInventario"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"/>
+
+    <!-- BOTONES ACCIÓN (exportar) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="8dp">
+
+        <Button
+            android:id="@+id/btnExportPdfInventario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exportar PDF"
+            android:backgroundTint="#1E3A8A"
+            android:textColor="@android:color/white"
+            android:paddingHorizontal="14dp" />
+
+        <Button
+            android:id="@+id/btnExportExcelInventario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exportar Excel"
+            android:layout_marginStart="8dp"
+            android:paddingHorizontal="14dp" />
+    </LinearLayout>
+
+</LinearLayout>

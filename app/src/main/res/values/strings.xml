@@ -50,24 +50,6 @@
     <string name="lblconfirmar_contraseña">Confirmar contraseña</string>
     <string name="hint_confirmar_contraseña">Repita la contraseña</string>
 
-    <string name="btn_cancelar">Cancelar</string>
-    <string name="btn_guardar">Guardar</string>
-
-    <string-array name="roles">
-        <item>Admin</item>
-        <item>Instructor</item>
-        <item>Supervisor</item>
-    </string-array>
-
-    <string-array name="sedes">
-        <item>Arequipa</item>
-        <item>Lima</item>
-        <item>Cusco</item>
-        <item>Trujillo</item>
-        <item>Piura</item>
-        <item>Chiclayo</item>
-    </string-array>
-
     <!-- Entradas -->
     <string name="entrada_titulo">Registrar Entrada de Equipo</string>
     <string name="entrada_hint_equipo_id">ID del equipo</string>
@@ -104,6 +86,11 @@
     <string name="salida_msg_error_db">Error de base de datos</string>
 
     <!-- Préstamos -->
+
+
+    <string name="prestamo_hint_observaciones">Observaciones (opcional)</string>
+
+
     <string name="prestamo_titulo_solicitud">Solicitar Préstamo</string>
     <string name="prestamo_spinner_seleccionar_equipo">Seleccione un equipo</string>
     <string name="prestamo_btn_solicitar">Solicitar Préstamo</string>
@@ -136,6 +123,7 @@
     <string name="label_solicitante">Solicitante</string>
     <string name="label_fecha">Fecha</string>
     <string name="label_estado">Estado</string>
+
 
     <!-- Gestión de Equipos -->
 
@@ -258,5 +246,28 @@
     <string name="inventario_msg_campos_vacios">Complete todos los campos</string>
     <string name="inventario_stock_titulo">Stock en Tiempo Real</string>
     <string name="inventario_stock_sin_datos">No hay datos de stock disponibles</string>
+
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_guardar">Guardar</string>
+
+    <string-array name="roles">
+        <item>Admin</item>
+        <item>Instructor</item>
+        <item>Supervisor</item>
+    </string-array>
+
+    <string-array name="sedes">
+        <item>Arequipa</item>
+        <item>Lima</item>
+        <item>Cusco</item>
+        <item>Trujillo</item>
+        <item>Piura</item>
+        <item>Chiclayo</item>
+    </string-array>
+
+    <string name="prestamo_lista_devoluciones_titulo">Lista de Devoluciones</string>
+
+
+    <string name="spinner_prompt_seleccione_equipo">Seleccione un equipo</string>
 
 </resources>

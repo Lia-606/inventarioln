@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:padding="6dp"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="1dp">
+
+    <!-- Equipo -->
+    <TextView
+        android:id="@+id/tvPrestamoEquipo"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:text="Laptop Lenovo ThinkPad"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <!-- Solicitante -->
+    <TextView
+        android:id="@+id/tvPrestamoSolicitante"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:text="Alumno"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black" />
+
+    <!-- Estado -->
+    <TextView
+        android:id="@+id/tvPrestamoEstado"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Pendiente"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <!-- Fecha solicitud -->
+    <TextView
+        android:id="@+id/tvPrestamoFechaSolicitud"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:layout_height="wrap_content"
+        android:text="12/09/2025"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black" />
+
+    <!-- Fecha devolución -->
+    <TextView
+        android:id="@+id/tvPrestamoFechaDevolucion"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:layout_height="wrap_content"
+        android:text="14/09/2025"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

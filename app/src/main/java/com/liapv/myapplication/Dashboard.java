@@ -120,19 +120,18 @@ public class Dashboard extends AppCompatActivity {
 
     // Abrir actividad correspondiente
     private void abrirModulo(int id) {
-        if(id == R.id.cvUsuarios){
+        if (id == R.id.cvUsuarios) {
             startActivity(new Intent(this, com.liapv.myapplication.usuarios.UsuariosActivity.class));
-        } else if(id == R.id.cvEquipos){
+        } else if (id == R.id.cvEquipos) {
             startActivity(new Intent(this, com.liapv.myapplication.equipos.ListaEquiposActivity.class));
-        } else if(id == R.id.cvInventario){
-            // startActivity(new Intent(this, com.liapv.myapplication.inventario.InventarioActivity.class));
+        } else if (id == R.id.cvInventario) {
             Toast.makeText(this, "Módulo Inventario aún no implementado", Toast.LENGTH_SHORT).show();
-        } else if(id == R.id.cvPrestamos){
+        } else if (id == R.id.cvPrestamos) {
             startActivity(new Intent(this, com.liapv.myapplication.prestamos.ListaSolicitudesActivity.class));
-        } else if(id == R.id.cvReportes){
-            // startActivity(new Intent(this, com.liapv.myapplication.reportes.ReportesActivity.class));
-            Toast.makeText(this, "Módulo Reportes aún no implementado", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.cvReportes) {
+            startActivity(new Intent(this, com.liapv.myapplication.reportes.ReportesActivity.class));
         }
     }
+
 
 }

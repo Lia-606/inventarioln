@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/fondo_dashboard"
+    tools:context=".reportes.ReportesActivity">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Reportes"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:shadowColor="#80000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4" />
+
+    <!-- Botones para cambiar entre fragments -->
+    <LinearLayout
+        android:id="@+id/llBotones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnInventario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventario"
+            android:backgroundTint="#6A5ACD"
+            android:textColor="@android:color/white"
+            android:layout_margin="8dp"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnPrestamos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Préstamos"
+            android:backgroundTint="#FF69B4"
+            android:textColor="@android:color/white"
+            android:layout_margin="8dp"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnAuditoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Auditoría"
+            android:backgroundTint="#20B2AA"
+            android:textColor="@android:color/white"
+            android:layout_margin="8dp"
+            android:padding="12dp"/>
+    </LinearLayout>
+
+    <!-- Contenedor más grande para los fragments -->
+    <FrameLayout
+        android:id="@+id/contenedorFragments"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#CBFBF1"
+        android:layout_margin="12dp"
+        android:padding="8dp" />
+
+</LinearLayout>
