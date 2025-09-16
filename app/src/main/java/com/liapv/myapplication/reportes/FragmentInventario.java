@@ -224,6 +224,9 @@ public class FragmentInventario extends Fragment {
             return;
         }
 
+        // Método auxiliar para evitar null
+        java.util.function.Function<String, String> safe = text -> (text == null ? "" : text);
+
         PdfDocument pdf = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
         PdfDocument.Page page = pdf.startPage(pageInfo);
@@ -233,25 +236,45 @@ public class FragmentInventario extends Fragment {
         paint.setTextSize(12);
 
         int y = 40;
-        canvas.drawText("Reporte Inventario", 200, y, paint);
+        paint.setTextSize(16);
+        paint.setFakeBoldText(true);
+        canvas.drawText("Reporte de Inventario", 200, y, paint);
+
+        paint.setTextSize(12);
+        paint.setFakeBoldText(true);
         y += 30;
 
+        // Encabezados de tabla
+        int xTipo = 20, xEquipo = 100, xCantidad = 300, xFecha = 370, xResp = 470;
+        canvas.drawText("Tipo", xTipo, y, paint);
+        canvas.drawText("Equipo", xEquipo, y, paint);
+        canvas.drawText("Cantidad", xCantidad, y, paint);
+        canvas.drawText("Fecha", xFecha, y, paint);
+        canvas.drawText("Responsable", xResp, y, paint);
+        y += 20;
+
+        paint.setFakeBoldText(false);
+
+        // Filas de tabla
         for (InventarioItem item : listaInventario) {
-            String linea = item.getTipoMovimiento() + " | " + item.getNombreEquipo() + " | " + item.getStock()
-                    + " | " + item.getFecha() + " | " + item.getResponsable();
-            canvas.drawText(linea, 20, y, paint);
+            canvas.drawText(safe.apply(item.getTipoMovimiento()), xTipo, y, paint);
+            canvas.drawText(safe.apply(item.getNombreEquipo()), xEquipo, y, paint);
+            canvas.drawText(String.valueOf(item.getStock()), xCantidad, y, paint);
+            canvas.drawText(safe.apply(item.getFecha()), xFecha, y, paint);
+            canvas.drawText(safe.apply(item.getResponsable()), xResp, y, paint);
             y += 20;
-            // paginación básica
+
+            // Paginación
             if (y > 800) {
                 pdf.finishPage(page);
                 page = pdf.startPage(new PdfDocument.PageInfo.Builder(595, 842, 1).create());
                 canvas = page.getCanvas();
+                paint.setTextSize(12);
                 y = 40;
             }
         }
         pdf.finishPage(page);
 
-        // convertir PDF a bytes
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             pdf.writeTo(bos);
             pdf.close();
@@ -259,15 +282,14 @@ public class FragmentInventario extends Fragment {
             boolean ok = saveBytesToDownloads(data, "reporte_inventario.pdf", "application/pdf");
             if (ok) {
                 Toast.makeText(getContext(), "PDF guardado en Descargas", Toast.LENGTH_LONG).show();
-                Log.i(TAG, "PDF generado");
             }
         } catch (IOException e) {
-            Log.e(TAG, "Error generando PDF", e);
             Toast.makeText(getContext(), "Error al generar PDF", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // ===================== CSV (en lugar de XLSX) =====================
+
+    // ===================== CSV =====================
     private void generarCsv() {
         if (listaInventario.isEmpty()) {
             Toast.makeText(getContext(), "No hay datos para generar CSV", Toast.LENGTH_SHORT).show();
@@ -277,12 +299,12 @@ public class FragmentInventario extends Fragment {
         StringBuilder sb = new StringBuilder();
         sb.append("Tipo,Equipo,Cantidad,Fecha,Responsable\n");
         for (InventarioItem item : listaInventario) {
-            // escapamos comillas y encerramos en comillas por seguridad
             String tipo = escapeCsv(item.getTipoMovimiento());
             String equipo = escapeCsv(item.getNombreEquipo());
             String cantidad = String.valueOf(item.getStock());
             String fecha = escapeCsv(item.getFecha());
             String responsable = escapeCsv(item.getResponsable());
+
             sb.append("\"").append(tipo).append("\",")
                     .append("\"").append(equipo).append("\",")
                     .append(cantidad).append(",")
@@ -294,9 +316,9 @@ public class FragmentInventario extends Fragment {
         boolean ok = saveBytesToDownloads(data, "reporte_inventario.csv", "text/csv");
         if (ok) {
             Toast.makeText(getContext(), "CSV guardado en Descargas", Toast.LENGTH_LONG).show();
-            Log.i(TAG, "CSV generado");
         }
     }
+
 
     private String escapeCsv(String s) {
         if (s == null) return "";

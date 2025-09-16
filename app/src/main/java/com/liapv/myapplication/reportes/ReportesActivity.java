@@ -38,8 +38,7 @@ public class ReportesActivity extends AppCompatActivity {
 
         // Listener para botón Auditoría
         btnAuditoria.setOnClickListener(v -> {
-            // Aquí llamas al fragment de auditoría cuando lo tengas creado
-            // Ejemplo: cargarFragment(new FragmentAuditoria());
+            cargarFragment(new FragmentAuditoria());
         });
     }
 

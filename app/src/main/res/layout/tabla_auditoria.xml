@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:padding="6dp"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="1dp">
+
+    <!-- Fecha -->
+    <TextView
+        android:id="@+id/tvAudFecha"
+        android:layout_width="0dp"
+        android:layout_weight="1.2"
+        android:layout_height="wrap_content"
+        android:text="12/09/2025"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <!-- Tipo de acción -->
+    <TextView
+        android:id="@+id/tvAudAccion"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Préstamo"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black" />
+
+    <!-- Equipo -->
+    <TextView
+        android:id="@+id/tvAudEquipo"
+        android:layout_width="0dp"
+        android:layout_weight="1.8"
+        android:layout_height="wrap_content"
+        android:text="Laptop Lenovo"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black" />
+
+    <!-- Cantidad -->
+    <TextView
+        android:id="@+id/tvAudCantidad"
+        android:layout_width="0dp"
+        android:layout_weight="0.8"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black" />
+
+    <!-- Responsable -->
+    <TextView
+        android:id="@+id/tvAudResponsable"
+        android:layout_width="0dp"
+        android:layout_weight="1.2"
+        android:layout_height="wrap_content"
+        android:text="Administrador"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black" />
+
+    <!-- Solicitante / Proveedor -->
+    <TextView
+        android:id="@+id/tvAudSolicitanteProveedor"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:layout_height="wrap_content"
+        android:text="Luis / ImportTech"
+        android:gravity="center"
+        android:padding="6dp"
+        android:background="@drawable/borde_celda"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

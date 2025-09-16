@@ -225,17 +225,41 @@ public class FragmentPrestamos extends Fragment {
         paint.setTextSize(12);
 
         int y = 40;
+        // Título
+        paint.setFakeBoldText(true);
         canvas.drawText("Reporte de Préstamos", 200, y, paint);
+        paint.setFakeBoldText(false);
         y += 30;
 
+        // Definir columnas (x-coordinates)
+        int xEstado = 20;
+        int xEquipo = 120;
+        int xSolicitante = 270;
+        int xFechaSolicitud = 400;
+        int xFechaDevolucion = 500;
+
+        // Dibujar encabezados
+        paint.setFakeBoldText(true);
+        canvas.drawText("Estado", xEstado, y, paint);
+        canvas.drawText("Equipo", xEquipo, y, paint);
+        canvas.drawText("Solicitante", xSolicitante, y, paint);
+        canvas.drawText("F. Solicitud", xFechaSolicitud, y, paint);
+        canvas.drawText("F. Devolución", xFechaDevolucion, y, paint);
+        paint.setFakeBoldText(false);
+
+        y += 20;
+
+        // Dibujar filas
         for (PrestamoItem item : listaPrestamos) {
-            String linea = (item.getEstado() != null ? item.getEstado() : "-") + " | " +
-                    (item.getNombreEquipo() != null ? item.getNombreEquipo() : "-") + " | " +
-                    (item.getSolicitante() != null ? item.getSolicitante() : "-") + " | " +
-                    (item.getFechaSolicitud() != null ? item.getFechaSolicitud() : "-");
-            canvas.drawText(linea, 20, y, paint);
+            canvas.drawText(item.getEstado() != null ? item.getEstado() : "-", xEstado, y, paint);
+            canvas.drawText(item.getNombreEquipo() != null ? item.getNombreEquipo() : "-", xEquipo, y, paint);
+            canvas.drawText(item.getSolicitante() != null ? item.getSolicitante() : "-", xSolicitante, y, paint);
+            canvas.drawText(item.getFechaSolicitud() != null ? item.getFechaSolicitud() : "-", xFechaSolicitud, y, paint);
+            canvas.drawText(item.getFechaDevolucion() != null ? item.getFechaDevolucion() : "-", xFechaDevolucion, y, paint);
+
             y += 20;
 
+            // Saltar a nueva página si se llena
             if (y > 800) {
                 pdf.finishPage(page);
                 page = pdf.startPage(new PdfDocument.PageInfo.Builder(595, 842, 1).create());
@@ -243,6 +267,7 @@ public class FragmentPrestamos extends Fragment {
                 y = 40;
             }
         }
+
         pdf.finishPage(page);
 
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
@@ -258,6 +283,7 @@ public class FragmentPrestamos extends Fragment {
         }
     }
 
+
     // ===================== CSV =====================
     private void generarCsv() {
         if (listaPrestamos.isEmpty()) {
@@ -266,12 +292,15 @@ public class FragmentPrestamos extends Fragment {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Estado,Equipo,Solicitante,FechaSolicitud\n");
+        // Encabezados de las columnas
+        sb.append("Estado,Equipo,Solicitante,FechaSolicitud,FechaDevolucion\n");
+
         for (PrestamoItem item : listaPrestamos) {
             sb.append("\"").append(escapeCsv(item.getEstado())).append("\",")
                     .append("\"").append(escapeCsv(item.getNombreEquipo())).append("\",")
                     .append("\"").append(escapeCsv(item.getSolicitante())).append("\",")
-                    .append("\"").append(escapeCsv(item.getFechaSolicitud())).append("\"\n");
+                    .append("\"").append(escapeCsv(item.getFechaSolicitud())).append("\",")
+                    .append("\"").append(escapeCsv(item.getFechaDevolucion())).append("\"\n");
         }
 
         byte[] data = sb.toString().getBytes(StandardCharsets.UTF_8);
@@ -280,6 +309,7 @@ public class FragmentPrestamos extends Fragment {
             Toast.makeText(getContext(), "CSV guardado en Descargas", Toast.LENGTH_LONG).show();
         }
     }
+
 
     private String escapeCsv(String s) {
         if (s == null) return "";
