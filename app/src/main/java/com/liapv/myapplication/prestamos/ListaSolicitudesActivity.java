@@ -25,7 +25,7 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
     private DatabaseReference dbPrestamos;
 
     private List<Prestamo> listaSolicitudes = new ArrayList<>();
-    private boolean puedeAprobar = false; // Solo true si el usuario es Supervisor
+    private boolean puedeAprobar = false; // ✅ Solo uno
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,11 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
 
         dbPrestamos = FirebaseDatabase.getInstance().getReference("prestamos");
 
-        // Obtener rol del usuario actual
+        // ✅ Obtener el UID del usuario actual
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference refRol = FirebaseDatabase.getInstance().getReference("usuarios").child(uid).child("rol");
 
+        // ✅ Verificar el rol y asignar permisos
         refRol.get().addOnSuccessListener(snapshot -> {
             if (snapshot.exists()) {
                 String rol = snapshot.getValue(String.class);
@@ -49,10 +50,7 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
                 }
             }
 
-            // Inicializar el adapter después de saber el rol
-            String rolUsuario = getIntent().getStringExtra("rol");
-            boolean puedeAprobar = "Supervisor".equalsIgnoreCase(rolUsuario);
-
+            // ✅ Configurar adapter con permisos correctos
             adapter = new SolicitudesAdapter(listaSolicitudes, puedeAprobar, new SolicitudesAdapter.OnSolicitudActionListener() {
                 @Override
                 public void onAprobar(Prestamo prestamo) {
@@ -66,7 +64,7 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
             });
 
             rvSolicitudes.setAdapter(adapter);
-            cargarSolicitudes(); // cargar después de configurar adapter
+            cargarSolicitudes();
 
         }).addOnFailureListener(e -> {
             Toast.makeText(this, "Error al obtener el rol del usuario", Toast.LENGTH_SHORT).show();
@@ -113,7 +111,7 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
         prestamo.setEstado(nuevoEstado);
 
         if (nuevoEstado.equals(getString(R.string.prestamo_estado_aprobado))) {
-            // Reducción de stock del equipo
+            // ✅ Reducir stock
             DatabaseReference equipoRef = FirebaseDatabase.getInstance().getReference("equipos").child(equipoId);
 
             equipoRef.runTransaction(new Transaction.Handler() {
@@ -129,7 +127,7 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
                     int cantidad = prestamo.getCantidad();
 
                     if (stockActual < cantidad) {
-                        return Transaction.abort(); // Sin stock suficiente
+                        return Transaction.abort(); // No hay stock suficiente
                     }
 
                     equipo.setStock(stockActual - cantidad);
@@ -152,7 +150,7 @@ public class ListaSolicitudesActivity extends AppCompatActivity {
             });
 
         } else {
-            // Estado: Rechazado
+            // ✅ Estado Rechazado
             prestamoRef.setValue(prestamo).addOnSuccessListener(aVoid -> {
                 Toast.makeText(this, getString(R.string.prestamo_msg_rechazado), Toast.LENGTH_SHORT).show();
             }).addOnFailureListener(e -> {

@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
@@ -20,7 +19,6 @@ public class Dashboard extends AppCompatActivity {
 
     private CardView cvUsuarios, cvEquipos, cvInventario, cvPrestamos, cvReportes;
     private TextView tvNombreApellido;
-    private View ivPerfil;
 
     private FirebaseAuth mAuth;
     private String userRol = "", userNombre = "";
@@ -28,18 +26,17 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
 
-        // Ajuste de padding para sistemas con barras
+        // Inicializar Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Ajustar padding por barras de sistema
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // Inicializar Firebase
-        mAuth = FirebaseAuth.getInstance();
 
         // Referencias UI
         cvUsuarios = findViewById(R.id.cvUsuarios);
@@ -48,90 +45,118 @@ public class Dashboard extends AppCompatActivity {
         cvPrestamos = findViewById(R.id.cvPrestamos);
         cvReportes = findViewById(R.id.cvReportes);
         tvNombreApellido = findViewById(R.id.tvNombreApellido);
-        ivPerfil = findViewById(R.id.btnPerfil);
 
-        // Listener de Mi Perfil
-        ivPerfil.setOnClickListener(v -> startActivity(
-                new Intent(Dashboard.this, com.liapv.myapplication.perfil.MiPerfilActivity.class)
-        ));
-
-        // Verificar que haya un usuario logueado
-        if (mAuth.getCurrentUser() == null) {
-            // Si no hay usuario logueado, redirigir al login
-            Toast.makeText(this, "No hay usuario logueado", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Dashboard.this, MainActivity.class));
-            finish();
-            return;
-        }
-
-        // Obtener datos del usuario desde Firebase
+        // Obtener usuario actual
         String uid = mAuth.getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference("usuarios").child(uid)
-                .get().addOnSuccessListener(snapshot -> {
-                    if(snapshot.exists()) {
-                        userNombre = snapshot.child("nombre").getValue(String.class) + " " +
-                                snapshot.child("apellido").getValue(String.class);
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    if (snapshot.exists()) {
+                        String nombre = snapshot.child("nombre").getValue(String.class);
+                        String apellido = snapshot.child("apellido").getValue(String.class);
                         userRol = snapshot.child("rol").getValue(String.class);
 
-                        // Mostrar nombre en Dashboard
+                        userNombre = nombre + " " + apellido;
                         tvNombreApellido.setText(userNombre + " (" + userRol + ")");
 
-                        // Configurar módulos según rol
-                        configurarModuloSegunRol();
+                        configurarModuloSegunRol(userRol);
+                        configurarNavegacion();
                     }
-                }).addOnFailureListener(e ->
-                        Toast.makeText(this, "Error al cargar datos", Toast.LENGTH_SHORT).show()
-                );
-
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Error al cargar datos del usuario", Toast.LENGTH_SHORT).show());
     }
 
-    // Configuración de módulos según rol
-    private void configurarModuloSegunRol() {
-        // Usuarios: solo Admin
-        mostrarOCultarModulo(cvUsuarios, new String[]{"Administrador", "Admin"});
-        // Equipos: solo Admin puede modificar
-        mostrarOCultarModulo(cvEquipos, new String[]{"Administrador", "Admin"});
-        // Inventario: Admin y Supervisor pueden registrar
-        mostrarOCultarModulo(cvInventario, new String[]{"Administrador", "Admin", "Supervisor"});
-        // Préstamos: Instructor puede solicitar, Admin/Supervisor validan
-        mostrarOCultarModulo(cvPrestamos, new String[]{"Administrador", "Admin", "Supervisor", "Instructor"});
-        // Reportes: Admin y Supervisor
-        mostrarOCultarModulo(cvReportes, new String[]{"Administrador", "Admin", "Supervisor"});
-    }
+    /**
+     * Mostrar u ocultar módulos según el rol del usuario.
+     */
+    private void configurarModuloSegunRol(String rol) {
+        if (rol == null) return;
 
-    // Mostrar u ocultar módulo según rol
-    private void mostrarOCultarModulo(CardView modulo, String[] rolesPermitidos){
-        boolean permitido = false;
-        for(String rolPermitido : rolesPermitidos){
-            if(userRol.equalsIgnoreCase(rolPermitido)){
-                permitido = true;
+        switch (rol.toLowerCase()) {
+            case "administrador":
+            case "admin":
+                // Todo visible
                 break;
+
+            case "supervisor":
+                cvUsuarios.setVisibility(View.GONE); // no puede ver usuarios
+                break;
+
+            case "instructor":
+                // Acceso solo a préstamos
+                cvUsuarios.setVisibility(View.GONE);
+                cvEquipos.setVisibility(View.GONE);
+                cvInventario.setVisibility(View.GONE);
+                cvReportes.setVisibility(View.GONE);
+                break;
+
+            default:
+                // Rol no reconocido: ocultar todo excepto préstamos
+                cvUsuarios.setVisibility(View.GONE);
+                cvEquipos.setVisibility(View.GONE);
+                cvInventario.setVisibility(View.GONE);
+                cvReportes.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    /**
+     * Configura los clicks para los módulos según permisos.
+     */
+    private void configurarNavegacion() {
+        cvUsuarios.setOnClickListener(v -> {
+            if (rolPermitido("admin", "administrador")) {
+                Intent intent = new Intent(this, com.liapv.myapplication.usuarios.UsuariosActivity.class);
+                intent.putExtra("rol", userRol);
+                startActivity(intent);
+            } else {
+                mostrarAccesoDenegado();
+            }
+        });
+
+        cvEquipos.setOnClickListener(v -> {
+            if (rolPermitido("admin", "administrador", "supervisor")) {
+                Intent intent = new Intent(this, com.liapv.myapplication.equipos.EquipoActivity.class);
+                intent.putExtra("rol", userRol);
+                startActivity(intent);
+            } else {
+                mostrarAccesoDenegado();
+            }
+        });
+
+        cvInventario.setOnClickListener(v -> {
+            if (rolPermitido("admin", "administrador", "supervisor")) {
+                Intent intent = new Intent(this, com.liapv.myapplication.inventario.InventarioActivity.class);
+                intent.putExtra("rol", userRol);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Solo puedes ver stock", Toast.LENGTH_SHORT).show();
+                // Aquí podrías abrir solo la vista de stock si quieres
+            }
+        });
+
+        cvPrestamos.setOnClickListener(v -> {
+            Intent intent = new Intent(this, com.liapv.myapplication.prestamos.PrestamoActivity.class);
+            intent.putExtra("rol", userRol);
+            startActivity(intent);
+        });
+
+        cvReportes.setOnClickListener(v -> {
+            if (rolPermitido("admin", "administrador", "supervisor")) {
+            }
+        });
+    }
+
+    private boolean rolPermitido(String... rolesPermitidos) {
+        for (String rolPermitido : rolesPermitidos) {
+            if (userRol != null && userRol.equalsIgnoreCase(rolPermitido)) {
+                return true;
             }
         }
-
-        if(permitido){
-            modulo.setVisibility(View.VISIBLE);
-            modulo.setAlpha(1f);
-            modulo.setOnClickListener(v -> abrirModulo(modulo.getId()));
-        } else {
-            modulo.setVisibility(View.GONE); // Módulo oculto para roles no permitidos
-        }
+        return false;
     }
 
-    // Abrir actividad correspondiente
-    private void abrirModulo(int id) {
-        if (id == R.id.cvUsuarios) {
-            startActivity(new Intent(this, com.liapv.myapplication.usuarios.UsuariosActivity.class));
-        } else if (id == R.id.cvEquipos) {
-            startActivity(new Intent(this, com.liapv.myapplication.equipos.ListaEquiposActivity.class));
-        } else if (id == R.id.cvInventario) {
-            Toast.makeText(this, "Módulo Inventario aún no implementado", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.cvPrestamos) {
-            startActivity(new Intent(this, com.liapv.myapplication.prestamos.ListaSolicitudesActivity.class));
-        } else if (id == R.id.cvReportes) {
-            startActivity(new Intent(this, com.liapv.myapplication.reportes.ReportesActivity.class));
-        }
+    private void mostrarAccesoDenegado() {
+        Toast.makeText(this, "Acceso denegado", Toast.LENGTH_SHORT).show();
     }
-
-
 }
