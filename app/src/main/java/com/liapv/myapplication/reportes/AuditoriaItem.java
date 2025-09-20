@@ -11,7 +11,7 @@ public class AuditoriaItem {
     private String solicitanteProveedor;
 
     public AuditoriaItem() {
-        // Constructor vacío necesario para Firebase
+
     }
 
     public AuditoriaItem(String id, String fecha, String accion, String equipo, Integer cantidad,

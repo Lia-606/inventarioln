@@ -123,11 +123,11 @@ public class Dashboard extends AppCompatActivity {
         if (id == R.id.cvUsuarios) {
             startActivity(new Intent(this, com.liapv.myapplication.usuarios.UsuariosActivity.class));
         } else if (id == R.id.cvEquipos) {
-            startActivity(new Intent(this, com.liapv.myapplication.equipos.ListaEquiposActivity.class));
+            startActivity(new Intent(this, com.liapv.myapplication.equipos.EquipoActivity.class));
         } else if (id == R.id.cvInventario) {
-            Toast.makeText(this, "Módulo Inventario aún no implementado", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, com.liapv.myapplication.inventario.InventarioActivity.class));
         } else if (id == R.id.cvPrestamos) {
-            startActivity(new Intent(this, com.liapv.myapplication.prestamos.ListaSolicitudesActivity.class));
+            startActivity(new Intent(this, com.liapv.myapplication.prestamos.PrestamoActivity.class));
         } else if (id == R.id.cvReportes) {
             startActivity(new Intent(this, com.liapv.myapplication.reportes.ReportesActivity.class));
         }

@@ -62,7 +62,7 @@ public class UsuariosActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchUsuarios);
         fabAddUsuario = findViewById(R.id.fabAddUsuario);
 
-        // 🔎 Configuración extra para que funcione el teclado
+        //  Configuración extra para que funcione el teclado
         searchView.setIconifiedByDefault(false); // hace que esté expandido por defecto
         searchView.setFocusable(true);
         searchView.setFocusableInTouchMode(true);
@@ -73,12 +73,12 @@ public class UsuariosActivity extends AppCompatActivity {
         adapter = new UsuariosAdapter(this, listaFiltrada, new UsuariosAdapter.OnItemClickListener() {
             @Override
             public void onEditarClick(Usuario usuario) {
-                mostrarDialogoEditarUsuario(usuario); // ✅ llamamos al diálogo de editar
+                mostrarDialogoEditarUsuario(usuario); //
             }
 
             @Override
             public void onVerMasClick(Usuario usuario) {
-                mostrarDialogoVerMasUsuario(usuario); // ✅ llamamos al diálogo de solo lectura
+                mostrarDialogoVerMasUsuario(usuario); //
             }
         });
         rvUsuarios.setAdapter(adapter);
@@ -171,8 +171,8 @@ public class UsuariosActivity extends AppCompatActivity {
         EditText etContrasena = dialogView.findViewById(R.id.etContrasena);
         EditText etCelular = dialogView.findViewById(R.id.etCelular);
         EditText etDireccion = dialogView.findViewById(R.id.etDireccion);
-        Spinner spRol = dialogView.findViewById(R.id.spRol);   // ✅ Spinner
-        Spinner spSede = dialogView.findViewById(R.id.spSede); // ✅ Spinner
+        Spinner spRol = dialogView.findViewById(R.id.spRol);
+        Spinner spSede = dialogView.findViewById(R.id.spSede);
 
         Button btnGuardar = dialogView.findViewById(R.id.btnGuardar);
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
@@ -186,8 +186,8 @@ public class UsuariosActivity extends AppCompatActivity {
             String contrasena = etContrasena.getText().toString().trim();
             String celular = etCelular.getText().toString().trim();
             String direccion = etDireccion.getText().toString().trim();
-            String rol = spRol.getSelectedItem().toString();   // ✅ Spinner obtiene selección
-            String sede = spSede.getSelectedItem().toString(); // ✅ Spinner obtiene selección
+            String rol = spRol.getSelectedItem().toString();
+            String sede = spSede.getSelectedItem().toString();
 
             if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(apellido) ||
                     TextUtils.isEmpty(correo) || TextUtils.isEmpty(contrasena)) {

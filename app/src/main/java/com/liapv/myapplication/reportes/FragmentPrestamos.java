@@ -128,11 +128,11 @@ public class FragmentPrestamos extends Fragment {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String id = ds.getKey();
                     String equipoId = ds.child("equipoId").getValue(String.class);
-                    String nombreEquipo = ds.child("equipoNombre").getValue(String.class); // puede venir directo en el nodo
+                    String nombreEquipo = ds.child("equipoNombre").getValue(String.class);
                     String solicitante = ds.child("nombreSolicitante").getValue(String.class);
                     String estado = ds.child("estado").getValue(String.class);
                     String fechaSolicitud = ds.child("fechaSolicitud").getValue(String.class);
-                    String fechaDevolucion = ds.child("fechaDevolucion").getValue(String.class); // ✅ ahora sí
+                    String fechaDevolucion = ds.child("fechaDevolucion").getValue(String.class);
 
                     if (nombreEquipo == null && equipoId != null) {
                         // buscar el equipo en la rama "equipos"
@@ -148,10 +148,10 @@ public class FragmentPrestamos extends Fragment {
                                                 equipoId,
                                                 nombreEquipoDb,
                                                 solicitante,
-                                                null, // responsable ya no está en DB
+                                                null,
                                                 estado,
                                                 fechaSolicitud,
-                                                fechaDevolucion // ✅ corregido
+                                                fechaDevolucion
                                         ));
                                         adapter.setData(listaPrestamos);
                                     }

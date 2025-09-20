@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin, btnForgotPassword;
 
     private FirebaseAuth mAuth;
-
+    //metodo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(view)
-                .setCancelable(false) // ⛔ No se cierra tocando fuera
+                .setCancelable(false)
                 .create();
 
         // Botón enviar
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // 🔹 Validaciones básicas
+        //  Validaciones básicas
         if (TextUtils.isEmpty(email)) {
             etEmail.setError("El correo es obligatorio");
             return;
@@ -113,12 +113,12 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // 🔹 Autenticación en Firebase
+        // Autenticación en Firebase
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(authResult -> {
                     String uid = authResult.getUser().getUid();
 
-                    // 🔹 Verificar estado del usuario en Realtime Database
+                    //  Verificar estado del usuario en Realtime Database
                     FirebaseDatabase.getInstance().getReference("usuarios")
                             .child(uid)
                             .child("estado")
